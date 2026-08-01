@@ -26,7 +26,7 @@ html{font-size:18px;-webkit-text-size-adjust:100%}
 body{
   margin:0; background:var(--bg); color:var(--ink);
   font-family:var(--body); line-height:1.6; font-weight:400;
-  hanging-punctuation:first last;
+  hanging-punctuation:first last; overflow-x:hidden;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
 .tnum{font-feature-settings:"tnum" 1,"lnum" 1}
@@ -94,9 +94,12 @@ footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:v
 @media (max-width:46rem){
   .wrap{padding:var(--s8) var(--s5) var(--s7)}
   .section{grid-template-columns:1fr; gap:var(--s4); margin-top:var(--s8)}
+  .section.hero{grid-template-columns:1fr; gap:var(--s5)}
+  h1{font-size:2.4rem; line-height:1.05}
   .rail{flex-direction:row; align-items:center; gap:var(--s3)}
-  .hero-content{grid-template-columns:1fr; gap:var(--s6)}
-  .portrait{width:8rem; height:8rem; order:-1}
+  .hero-content{grid-template-columns:1fr; gap:var(--s5)}
+  .lead{font-size:1.25rem; max-width:none}
+  .portrait{width:7.5rem; height:7.5rem; order:-1}
   .stage{grid-template-columns:1fr; gap:var(--s1)}
   .years{padding-top:0}
 }
