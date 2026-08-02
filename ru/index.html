@@ -44,8 +44,12 @@
   --display:'Golos Text','Inter',system-ui,sans-serif;
   --body:'Literata',Georgia,'Times New Roman',serif;
   --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  /* spacing — 8px-based scale, one token per role */
   --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
   --measure:34rem; --rail:9rem; --gap:2.75rem;
+  /* type — one modular scale (base 18px), all rem; ONE label size */
+  --fs-eyebrow:.8rem; --fs-body:1rem; --fs-lead:clamp(1.15rem,2.6vw,1.35rem);
+  --fs-h1:clamp(1.55rem,4.5vw,3.4rem); --ls-caps:.1em;
 }
 @media (prefers-color-scheme:dark){
   :root{ --bg:#18191D; --raised:#212228; --ink:#E8E4DA; --muted:#A29E95;
@@ -55,14 +59,19 @@
 html{font-size:18px;-webkit-text-size-adjust:100%}
 body{
   margin:0; background:var(--bg); color:var(--ink);
-  font-family:var(--body); line-height:1.6; font-weight:400;
+  font-family:var(--body); font-size:var(--fs-body); line-height:1.6; font-weight:400;
   hanging-punctuation:first last; overflow-x:hidden;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
 .tnum{font-feature-settings:"tnum" 1,"lnum" 1}
 .wrap{max-width:60rem; margin-inline:auto; padding:var(--s6) var(--s6) var(--s8)}
-.lang{font-family:var(--display); font-size:.78rem; letter-spacing:.06em; text-align:right; margin:0 0 var(--s6)}
-.lang [aria-current]{color:var(--ink); font-weight:500}
+
+/* labels / eyebrows — ONE size sitewide (display), mono variant for numerals */
+.kicker,.meta,.role-title,.lang,footer{font-family:var(--display); font-size:var(--fs-eyebrow)}
+.num,.years{font-family:var(--mono); font-size:var(--fs-eyebrow); font-feature-settings:"tnum" 1}
+
+.lang{letter-spacing:var(--ls-caps); text-align:right; margin:0 0 var(--s6); color:var(--muted)}
+.lang [aria-current]{color:var(--ink); font-weight:600}
 .lang a{color:var(--muted); text-decoration:none} .lang a:hover{color:var(--accent)}
 .lang .lang-sep{color:var(--hairline)}
 
@@ -72,59 +81,55 @@ a{color:var(--accent); text-decoration-line:underline; text-decoration-thickness
 a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
 :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:1px}
 
-/* ledger grid */
+/* ledger grid — identical template for every section */
 .section{display:grid; grid-template-columns:var(--rail) minmax(0,var(--measure)); gap:var(--gap);
   border-top:1px solid var(--hairline); padding-top:var(--s6); margin-top:var(--s9)}
 .rail{display:flex; flex-direction:column; gap:var(--s2)}
-.num{font-family:var(--mono); font-size:.8rem; font-weight:500; color:var(--accent); letter-spacing:.01em; font-feature-settings:"tnum" 1}
-.kicker{font-family:var(--display); text-transform:uppercase; font-size:.72rem; font-weight:500;
-  letter-spacing:.16em; color:var(--muted); margin:0; line-height:1.2}
+.num{font-weight:500; color:var(--accent); letter-spacing:.01em}
+.kicker{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--muted); margin:0; line-height:1.2}
 .content>*:first-child{margin-top:0}
+
+/* one sub-heading treatment across trajectory / focus / principles
+   — hierarchy carried by weight + family + color, not size (body-size, never bigger than the eyebrow marker) */
+.role,.umbrella,.principle h3{
+  font-family:var(--display); font-size:var(--fs-body); font-weight:600; font-style:normal;
+  line-height:1.3; letter-spacing:0; margin:0; max-width:var(--measure)}
 
 /* hero */
 .section.hero{border-top:none; margin-top:0; padding-top:0; grid-template-columns:var(--rail) minmax(0,1fr)}
 .hero-id{display:flex; flex-wrap:nowrap; align-items:center; gap:var(--s6)}
 .portrait{width:11rem; height:auto; flex:0 0 auto}
-h1{font-family:var(--display); font-size:clamp(1.55rem,4.5vw,3.4rem); font-weight:600;
+h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:600;
   letter-spacing:-.02em; line-height:1.04; margin:0; text-wrap:balance}
 .hero-name{flex:1 1 auto; min-width:0}
-.role-title{font-family:var(--display); font-weight:600; font-size:.82rem; text-transform:uppercase; letter-spacing:.09em; color:var(--accent); margin:.55rem 0 0}
-.lead{font-size:clamp(1.1rem,3.2vw,1.3rem); line-height:1.4; margin:var(--s5) 0 0; max-width:28rem; text-wrap:pretty}
-.meta{font-family:var(--display); font-size:.8rem; letter-spacing:.04em; color:var(--muted);
+.role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:var(--s2) 0 0}
+.lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.45; margin:var(--s5) 0 0; max-width:30rem; text-wrap:pretty}
+.meta{letter-spacing:.02em; color:var(--muted);
   margin:var(--s6) 0 0; display:flex; flex-wrap:wrap; gap:var(--s4); align-items:center}
 .meta .sep{color:var(--hairline)}
 .meta .mi{display:inline-flex; align-items:center; gap:var(--s3); white-space:nowrap}
 
-/* body */
+/* prose */
 p{margin:var(--s5) 0 0; max-width:var(--measure); text-wrap:pretty}
 
-/* trajectory */
-.stage{display:grid; grid-template-columns:6rem minmax(0,1fr); gap:var(--s5);
-  padding:var(--s5) 0; border-top:1px solid var(--hairline)}
-.stage:first-child{border-top:none; padding-top:0}
-.years{font-family:var(--mono); font-size:.8rem; color:var(--muted); letter-spacing:0; padding-top:.4rem; white-space:nowrap; font-feature-settings:"tnum" 1}
-.role{font-family:var(--display); font-size:1.2rem; font-weight:500; letter-spacing:.003em; margin:0}
-.stage p{margin:var(--s2) 0 0; font-size:1rem}
+/* titled blocks — trajectory + principles share identical spacing + dividers */
+.stage,.principle{padding:var(--s5) 0; border-top:1px solid var(--hairline)}
+.stage:first-child,.principle:first-child{border-top:none; padding-top:0}
+.stage{display:grid; grid-template-columns:6rem minmax(0,1fr); gap:var(--s5)}
+.years{color:var(--muted); letter-spacing:0; padding-top:.1rem; white-space:nowrap}
+.stage p,.principle p{margin:var(--s3) 0 0}
 
-/* focus */
-.umbrella{font-style:italic; font-size:1.2rem; line-height:1.45; margin:0; max-width:var(--measure)}
+/* lists — focus is a tight bulleted list (its own content type, no per-item dividers) */
 ul.focus{list-style:none; margin:var(--s5) 0 0; padding:0}
-ul.focus li{position:relative; padding:.55rem 0 .55rem var(--s5); border-top:1px solid var(--hairline); font-size:1rem}
-ul.focus li:first-child{border-top:none}
-ul.focus li::before{content:""; position:absolute; left:0; top:1.1rem; width:.4rem; height:.4rem; background:var(--accent)}
-
-/* principles */
-.principle{padding:var(--s5) 0; border-top:1px solid var(--hairline)}
-.principle:first-child{border-top:none; padding-top:0}
-.principle h3{font-family:var(--display); font-size:1.2rem; font-weight:500; letter-spacing:.003em; margin:0}
-.principle p{margin:var(--s2) 0 0; font-size:1rem}
+ul.focus li{position:relative; padding:var(--s2) 0 var(--s2) var(--s5)}
+ul.focus li::before{content:""; position:absolute; left:0; top:.72em; width:.36rem; height:.36rem; background:var(--accent)}
 
 /* contact + footer */
-.contact{display:flex; flex-direction:column; gap:var(--s3); font-family:var(--display); font-size:1rem}
+.contact{display:flex; flex-direction:column; gap:var(--s3); font-family:var(--display)}
 .contact .ci{display:inline-flex; align-items:center; gap:.55em; line-height:1}
 .contact .ci svg{width:24px; height:24px; fill:var(--accent); flex:0 0 auto; transform:translateY(.5px)}
 footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:var(--s4);
-  font-family:var(--display); font-size:.75rem; letter-spacing:.05em; color:var(--muted);
+  letter-spacing:var(--ls-caps); color:var(--muted);
   display:flex; justify-content:space-between; gap:var(--s4)}
 
 @media (max-width:46rem){
@@ -133,9 +138,9 @@ footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:v
   .section.hero{grid-template-columns:1fr}
   .hero-id{gap:var(--s5)}
   .portrait{width:4.75rem}
-  .rail{flex-direction:row; align-items:center; gap:var(--s3)}
+  .rail{flex-direction:row; align-items:baseline; gap:var(--s3)}
   .lead{max-width:none}
-  .meta{font-size:.7rem; gap:var(--s3)}
+  .meta{gap:var(--s3)}
   .meta .mi{gap:var(--s2)}
   .stage{grid-template-columns:1fr; gap:var(--s1)}
   .years{padding-top:0}
