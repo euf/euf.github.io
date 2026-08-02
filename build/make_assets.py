@@ -191,7 +191,7 @@ def build_og():
     role_f = ImageFont.truetype(GOLOS, 27)
     tag_f  = ImageFont.truetype(LIT_IT, 33)
 
-    y = 110
+    y = 150
     for line in wrap(d, "Evgeny Fayvuzhinskiy", name_f, 540):
         d.text((PADX, y), line, font=name_f, fill=INK)
         y += 84
@@ -202,8 +202,8 @@ def build_og():
     for ch in role:
         d.text((x, y), ch, font=role_f, fill=ACCENT)
         x += d.textlength(ch, font=role_f) + 2.4
-    y += 90
-    for line in wrap(d, "Product & monetization for a global trading platform in emerging markets.", tag_f, 540):
+    y += 92
+    for line in wrap(d, "The roadmap was never the hard part.", tag_f, 560):
         d.text((PADX, y), line, font=tag_f, fill=MUTED)
         y += 46
 
