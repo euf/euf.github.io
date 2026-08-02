@@ -165,13 +165,26 @@ def build_og():
     img = Image.new("RGB", (W, H), PAPER)
     d = ImageDraw.Draw(img)
 
-    # cutout on the right, bottom-aligned
+    # cutout on the right; bleed off the right + bottom edges so the source's
+    # hard crop edges fall off-canvas, and feather the one interior (left) edge
+    # into the paper so there is no vertical seam facing the text.
     if os.path.exists(CUTOUT):
         c = Image.open(CUTOUT).convert("RGBA")
-        target_h = 560
+        target_h = 592
         scale = target_h / c.height
-        c = c.resize((int(c.width * scale), target_h), Image.LANCZOS)
-        img.paste(c, (W - c.width - 40, H - c.height), c)
+        c = c.resize((round(c.width * scale), target_h), Image.LANCZOS)
+        px = W - c.width + 44          # bleed ~44px off the right edge
+        py = H - c.height + 22         # bleed ~22px off the bottom edge
+        # feather the left edge: ramp a horizontal alpha gradient into existing alpha
+        aband = c.split()[3]
+        ap = aband.load()
+        feather = 90
+        for x in range(min(feather, c.width)):
+            k = x / feather            # 0 at left edge -> 1 at feather end
+            for y in range(c.height):
+                ap[x, y] = int(ap[x, y] * k)
+        c.putalpha(aband)
+        img.paste(c, (px, py), c)
 
     PADX = 72
     name_f = ImageFont.truetype(GOLOS, 74)
@@ -180,7 +193,7 @@ def build_og():
     meta_f = ImageFont.truetype(GOLOS, 22)
 
     y = 96
-    for line in wrap(d, "Evgeny Fayvuzhinskiy", name_f, 640):
+    for line in wrap(d, "Evgeny Fayvuzhinskiy", name_f, 540):
         d.text((PADX, y), line, font=name_f, fill=INK)
         y += 84
     y += 8
@@ -191,7 +204,7 @@ def build_og():
         d.text((x, y), ch, font=role_f, fill=ACCENT)
         x += d.textlength(ch, font=role_f) + 2.4
     y += 66
-    for line in wrap(d, "Product & monetization for a global trading platform in emerging markets.", tag_f, 600):
+    for line in wrap(d, "Product & monetization for a global trading platform in emerging markets.", tag_f, 540):
         d.text((PADX, y), line, font=tag_f, fill=MUTED)
         y += 46
 
