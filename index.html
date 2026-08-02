@@ -7,19 +7,20 @@
 <meta name="description" content="Evgeny Fayvuzhinskiy — Chief Product Officer at Space307, product and monetization for a global trading platform in emerging markets. A product executive who came up the quantitative side and understands the economics the product runs on.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#FAF7F0; --raised:#F3EFE6; --ink:#1A1A17; --muted:#5A5750;
-  --hairline:#E2DED4; --accent:#002FA7; --accent-hover:#00248A;
-  --display:'Jost','Futura','Century Gothic',system-ui,sans-serif;
-  --body:'PT Serif',Georgia,'Times New Roman',serif;
+  --hairline:#E2DED4; --accent:#133A7C; --accent-hover:#0E2C5E;
+  --display:'Golos Text','Inter',system-ui,sans-serif;
+  --body:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
   --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
   --measure:34rem; --rail:9rem; --gap:2.75rem;
 }
 @media (prefers-color-scheme:dark){
   :root{ --bg:#18191D; --raised:#212228; --ink:#E8E4DA; --muted:#A29E95;
-         --hairline:#2E3036; --accent:#6E8BFF; --accent-hover:#8AA1FF; }
+         --hairline:#2E3036; --accent:#8AA6EA; --accent-hover:#A6BCF0; }
 }
 *{box-sizing:border-box}
 html{font-size:18px;-webkit-text-size-adjust:100%}
@@ -42,7 +43,7 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
 .section{display:grid; grid-template-columns:var(--rail) minmax(0,var(--measure)); gap:var(--gap);
   border-top:1px solid var(--hairline); padding-top:var(--s6); margin-top:var(--s9)}
 .rail{display:flex; flex-direction:column; gap:var(--s2)}
-.num{font-family:var(--display); font-size:.8rem; font-weight:500; color:var(--accent); letter-spacing:.02em}
+.num{font-family:var(--mono); font-size:.78rem; font-weight:500; color:var(--accent); letter-spacing:.01em; font-feature-settings:"tnum" 1}
 .kicker{font-family:var(--display); text-transform:uppercase; font-size:.72rem; font-weight:500;
   letter-spacing:.16em; color:var(--muted)}
 .content>*:first-child{margin-top:0}
@@ -67,7 +68,7 @@ p{margin:var(--s5) 0 0; max-width:var(--measure); text-wrap:pretty}
 .stage{display:grid; grid-template-columns:6rem minmax(0,1fr); gap:var(--s5);
   padding:var(--s5) 0; border-top:1px solid var(--hairline)}
 .stage:first-child{border-top:none; padding-top:0}
-.years{font-family:var(--display); font-size:.8rem; color:var(--muted); letter-spacing:.03em; padding-top:.3rem; white-space:nowrap}
+.years{font-family:var(--mono); font-size:.76rem; color:var(--muted); letter-spacing:0; padding-top:.35rem; white-space:nowrap; font-feature-settings:"tnum" 1}
 .role{font-family:var(--display); font-size:1.08rem; font-weight:500; letter-spacing:.004em; margin:0}
 .stage p{margin:var(--s2) 0 0; font-size:1rem}
 
