@@ -121,6 +121,8 @@ ul.focus li::before{content:""; position:absolute; left:0; top:1.1rem; width:.4r
 
 /* contact + footer */
 .contact{display:flex; flex-direction:column; gap:var(--s3); font-family:var(--display); font-size:1rem}
+.contact .ci{display:inline-flex; align-items:center; gap:.55em}
+.contact .ci svg{width:1.1em; height:1.1em; fill:var(--accent); flex:0 0 auto}
 footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:var(--s4);
   font-family:var(--display); font-size:.75rem; letter-spacing:.05em; color:var(--muted);
   display:flex; justify-content:space-between; gap:var(--s4)}
@@ -217,8 +219,9 @@ footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:v
     <div class="rail"><span class="num tnum">05</span><h2 class="kicker">Контакты</h2></div>
     <div class="content">
       <div class="contact">
-        <a href="mailto:e.u.f@icloud.com">e.u.f@icloud.com</a>
-        <a href="https://www.linkedin.com/in/evgeny-fayvuzhinskiy/">linkedin.com/in/evgeny-fayvuzhinskiy</a>
+        <span class="ci"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg><a href="https://www.linkedin.com/in/evgeny-fayvuzhinskiy/">linkedin.com/in/evgeny-fayvuzhinskiy</a></span>
+        <span class="ci"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m-.4 4.25-6.54 4.09c-.65.41-1.47.41-2.12 0L4.4 8.25c-.25-.16-.4-.43-.4-.72 0-.67.73-1.07 1.3-.72L12 11l6.7-4.19c.57-.35 1.3.05 1.3.72 0 .29-.15.56-.4.72"/></svg><a href="mailto:e.u.f@icloud.com">e.u.f@icloud.com</a></span>
+        <span class="ci"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg><a href="https://t.me/epicwin">t.me/epicwin</a></span>
       </div>
     </div>
   </section>
