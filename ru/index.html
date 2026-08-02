@@ -97,12 +97,12 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
 
 /* hero */
 .section.hero{border-top:none; margin-top:0; padding-top:0; grid-template-columns:var(--rail) minmax(0,1fr)}
-.hero-id{display:flex; flex-wrap:nowrap; align-items:center; gap:var(--s6)}
+.hero-id{display:flex; flex-wrap:nowrap; align-items:flex-end; gap:var(--s6)}
 .portrait{width:11rem; height:auto; flex:0 0 auto}
 h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:600;
   letter-spacing:-.02em; line-height:1.04; margin:0; text-wrap:balance}
 .hero-name{flex:1 1 auto; min-width:0}
-.role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:var(--s2) 0 0}
+.role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:var(--s4) 0 0}
 .lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.45; margin:var(--s5) 0 0; max-width:30rem; text-wrap:pretty}
 .meta{letter-spacing:.02em; color:var(--muted);
   margin:var(--s6) 0 0; display:flex; flex-wrap:wrap; gap:var(--s4); align-items:center}
@@ -115,9 +115,8 @@ p{margin:var(--s5) 0 0; max-width:var(--measure); text-wrap:pretty}
 /* titled blocks — trajectory + principles share identical spacing + dividers */
 .stage,.principle{padding:var(--s5) 0; border-top:1px solid var(--hairline)}
 .stage:first-child,.principle:first-child{border-top:none; padding-top:0}
-.stage{display:grid; grid-template-columns:6rem minmax(0,1fr); gap:var(--s5)}
-.years{color:var(--muted); letter-spacing:0; padding-top:.1rem; white-space:nowrap}
-.stage p,.principle p{margin:var(--s3) 0 0}
+.years{display:block; color:var(--muted); letter-spacing:.02em; margin:0 0 var(--s2); white-space:nowrap}
+.stage p:not(.role),.principle p{margin:var(--s3) 0 0}
 
 /* lists — focus is a tight bulleted list (its own content type, no per-item dividers) */
 ul.focus{list-style:none; margin:var(--s5) 0 0; padding:0}
@@ -142,8 +141,6 @@ footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:v
   .lead{max-width:none}
   .meta{gap:var(--s3)}
   .meta .mi{gap:var(--s2)}
-  .stage{grid-template-columns:1fr; gap:var(--s1)}
-  .years{padding-top:0}
 }
 @media (max-width:22rem){ .portrait{width:3.75rem} h1{font-size:1.4rem} }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
