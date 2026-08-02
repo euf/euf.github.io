@@ -190,28 +190,22 @@ def build_og():
     name_f = ImageFont.truetype(GOLOS, 74)
     role_f = ImageFont.truetype(GOLOS, 27)
     tag_f  = ImageFont.truetype(LIT_IT, 33)
-    meta_f = ImageFont.truetype(GOLOS, 22)
 
-    y = 96
+    y = 110
     for line in wrap(d, "Evgeny Fayvuzhinskiy", name_f, 540):
         d.text((PADX, y), line, font=name_f, fill=INK)
         y += 84
-    y += 8
+    y += 34
     # role, tracked uppercase in accent
     role = "CHIEF PRODUCT OFFICER"
     x = PADX
     for ch in role:
         d.text((x, y), ch, font=role_f, fill=ACCENT)
         x += d.textlength(ch, font=role_f) + 2.4
-    y += 66
+    y += 90
     for line in wrap(d, "Product & monetization for a global trading platform in emerging markets.", tag_f, 540):
         d.text((PADX, y), line, font=tag_f, fill=MUTED)
         y += 46
-
-    # bottom meta row
-    d.text((PADX, H - 74), "Limassol, Cyprus", font=meta_f, fill=MUTED)
-    url = "euf.github.io"
-    d.text((PADX, H - 44), url, font=meta_f, fill=ACCENT)
 
     img.save(os.path.join(ROOT, "og.png"))
     print("og.png (1200x630)")
