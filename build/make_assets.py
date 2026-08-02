@@ -203,7 +203,7 @@ def build_og():
         d.text((x, y), ch, font=role_f, fill=ACCENT)
         x += d.textlength(ch, font=role_f) + 2.4
     y += 92
-    for line in wrap(d, "The roadmap was never the hard part.", tag_f, 560):
+    for line in wrap(d, "What wins now is the product with better economics.", tag_f, 560):
         d.text((PADX, y), line, font=tag_f, fill=MUTED)
         y += 46
 
