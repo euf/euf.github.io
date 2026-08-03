@@ -20,7 +20,7 @@ ROOT = os.path.dirname(HERE)
 FONTS = os.path.join(HERE, "fonts")
 GOLOS = os.path.join(FONTS, "Commissioner-600.ttf")  # display font (name/role/EF monogram)
 LIT_IT = os.path.join(FONTS, "Literata-Italic.ttf")
-CUTOUT = "/Users/eugene/Downloads/slack-cutout.opt.png"
+CUTOUT = "/Users/eugene/Downloads/headshot.opt.png"
 
 # --- site palette (from index.html :root) ---
 PAPER = (250, 247, 240)   # #FAF7F0  --bg
