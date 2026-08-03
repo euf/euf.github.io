@@ -36,12 +36,12 @@
 <meta name="twitter:image" content="https://euf.github.io/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#FAF7F0; --raised:#F3EFE6; --ink:#1A1A17; --muted:#5A5750;
   --hairline:#E2DED4; --accent:#133A7C; --accent-hover:#0E2C5E;
-  --display:'Golos Text','Inter',system-ui,sans-serif;
+  --display:'Commissioner','Inter',system-ui,sans-serif;
   --body:'Literata',Georgia,'Times New Roman',serif;
   --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
   /* spacing — 8px-based scale, one token per role */
@@ -49,7 +49,7 @@
   --measure:34rem; --rail:9rem; --gap:2.75rem;
   /* type — one modular scale (base 18px), all rem; ONE label size */
   --fs-eyebrow:.8rem; --fs-body:1rem; --fs-lead:clamp(1.15rem,2.6vw,1.35rem);
-  --fs-h1:clamp(1.55rem,4.5vw,3.4rem); --ls-caps:.1em;
+  --fs-h1:clamp(1.55rem,4.4vw,2.7rem); --ls-caps:.1em;
 }
 @media (prefers-color-scheme:dark){
   :root{ --bg:#18191D; --raised:#212228; --ink:#E8E4DA; --muted:#A29E95;
@@ -95,17 +95,19 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
   font-family:var(--display); font-size:var(--fs-body); font-weight:600; font-style:normal;
   line-height:1.3; letter-spacing:0; margin:0; max-width:var(--measure)}
 
-/* hero */
-.section.hero{border-top:none; margin-top:0; padding-top:0; grid-template-columns:var(--rail) minmax(0,1fr)}
-.hero-id{display:flex; flex-wrap:nowrap; align-items:flex-end; gap:var(--s6)}
-.portrait{width:11rem; height:auto; flex:0 0 auto}
+/* hero — photo occupies the rail column; the name-block fills the content
+   column (= body text-column width), is sized to the photo's height, and pins
+   the name to the top / role to the bottom with flexible glue between */
+.section.hero{border-top:none; margin-top:0; padding-top:0;
+  grid-template-columns:var(--rail) minmax(0,var(--measure)); align-items:start}
+.portrait{width:var(--rail); aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px}
+.hero-name{height:var(--rail); display:flex; flex-direction:column; justify-content:space-between; min-width:0}
 h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:600;
-  letter-spacing:-.02em; line-height:1.04; margin:0; text-wrap:balance}
-.hero-name{flex:1 1 auto; min-width:0}
-.role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:var(--s4) 0 0}
-.lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.45; margin:var(--s5) 0 0; max-width:30rem; text-wrap:pretty}
+  letter-spacing:-.015em; line-height:1.02; margin:0}
+.role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:0}
+.lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.45; margin:var(--s6) 0 0; max-width:var(--measure); text-wrap:pretty}
 .meta{letter-spacing:.02em; color:var(--muted);
-  margin:var(--s6) 0 0; display:flex; flex-wrap:wrap; gap:var(--s4); align-items:center}
+  margin:var(--s5) 0 0; display:flex; flex-wrap:wrap; gap:var(--s4); align-items:center}
 .meta .sep{color:var(--hairline)}
 .meta .mi{display:inline-flex; align-items:center; gap:var(--s3); white-space:nowrap}
 
@@ -134,9 +136,10 @@ footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:v
 @media (max-width:46rem){
   .wrap{padding:var(--s6) var(--s5) var(--s7)}
   .section{grid-template-columns:1fr; gap:var(--s4); margin-top:var(--s8)}
-  .section.hero{grid-template-columns:1fr}
-  .hero-id{gap:var(--s5)}
-  .portrait{width:4.75rem}
+  .section.hero{grid-template-columns:1fr; gap:var(--s5)}
+  .portrait{width:5rem}
+  .hero-name{height:auto}
+  .role-title{margin-top:var(--s3)}
   .rail{flex-direction:row; align-items:baseline; gap:var(--s3)}
   .lead{max-width:none}
   .meta{gap:var(--s3)}
@@ -152,12 +155,9 @@ footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:v
   <nav class="lang" aria-label="Language"><span aria-current="page">EN</span> <span class="lang-sep">·</span> <a href="/ru/" hreflang="ru">RU</a></nav>
 
   <header class="section hero">
-    <div class="rail"></div>
+    <div class="rail"><img class="portrait" src="/headshot.png" width="512" height="512" alt="Evgeny Fayvuzhinskiy" fetchpriority="high" decoding="async"></div>
     <div class="content">
-      <div class="hero-id">
-        <img class="portrait" src="/headshot.png" width="512" height="503" alt="Evgeny Fayvuzhinskiy" fetchpriority="high" decoding="async">
-        <div class="hero-name"><h1>Evgeny Fayvuzhinskiy</h1><p class="role-title">Chief Product Officer</p></div>
-      </div>
+      <div class="hero-name"><h1>Evgeny<br>Fayvuzhinskiy</h1><p class="role-title">Chief Product Officer</p></div>
       <p class="lead">Emerging-markets trading is past its cheap-growth era. What wins now is the product with better economics &mdash; and the org with the discipline to build it.</p>
       <p class="meta"><span class="mi">Space307</span><span class="sep">&middot;</span><span class="mi">Limassol, Cyprus</span></p>
     </div>

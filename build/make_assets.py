@@ -18,7 +18,7 @@ from fontTools.pens.boundsPen import BoundsPen
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 FONTS = os.path.join(HERE, "fonts")
-GOLOS = os.path.join(FONTS, "GolosText-600.ttf")
+GOLOS = os.path.join(FONTS, "Commissioner-600.ttf")  # display font (name/role/EF monogram)
 LIT_IT = os.path.join(FONTS, "Literata-Italic.ttf")
 CUTOUT = "/Users/eugene/Downloads/slack-cutout.opt.png"
 
@@ -192,7 +192,7 @@ def build_og():
     tag_f  = ImageFont.truetype(LIT_IT, 33)
 
     y = 150
-    for line in wrap(d, "Evgeny Fayvuzhinskiy", name_f, 540):
+    for line in ["Evgeny", "Fayvuzhinskiy"]:   # always two lines, matches the site
         d.text((PADX, y), line, font=name_f, fill=INK)
         y += 84
     y += 34
