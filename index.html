@@ -49,7 +49,7 @@
   --measure:34rem; --rail:9rem; --gap:2.75rem;
   /* type — one modular scale (base 18px), all rem; ONE label size */
   --fs-eyebrow:.8rem; --fs-body:1rem; --fs-lead:clamp(1.15rem,2.6vw,1.35rem);
-  --fs-h1:clamp(1.55rem,4.4vw,2.7rem); --ls-caps:.1em;
+  --fs-h1:2.9rem; --ls-caps:.1em;
 }
 @media (prefers-color-scheme:dark){
   :root{ --bg:#18191D; --raised:#212228; --ink:#E8E4DA; --muted:#A29E95;
@@ -101,7 +101,7 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
 .section.hero{border-top:none; margin-top:0; padding-top:0;
   grid-template-columns:var(--rail) minmax(0,var(--measure)); align-items:start}
 .hero-id{display:flex; align-items:stretch; gap:var(--s5)}
-.portrait{width:9.5rem; aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px; flex:0 0 auto}
+.portrait{width:8.5rem; aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px; flex:0 0 auto}
 .hero-name{flex:1 1 auto; min-width:0; display:flex; flex-direction:column; justify-content:space-between}
 h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:600;
   letter-spacing:-.015em; line-height:1.02; margin:0}
@@ -140,6 +140,7 @@ footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:v
   .section.hero{grid-template-columns:1fr}
   .hero-id{gap:var(--s4)}
   .portrait{width:5.5rem}
+  h1{font-size:clamp(1.7rem,6vw,2.3rem)}
   .rail{flex-direction:row; align-items:baseline; gap:var(--s3)}
   .lead{max-width:none}
   .meta{gap:var(--s3)}
