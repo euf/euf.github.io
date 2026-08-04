@@ -33,15 +33,32 @@
 <meta name="twitter:title" content="Evgeny Fayvuzhinskiy — Chief Product Officer">
 <meta name="twitter:description" content="Product and monetization for a global trading platform in emerging markets.">
 <meta name="twitter:image" content="https://euf.github.io/og.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/literata-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/commissioner-var.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+/* self-hosted, Latin-subset variable fonts — no third-party requests */
+@font-face{
+  font-family:'Literata'; src:url('/fonts/literata-var.woff2') format('woff2');
+  font-weight:400 600; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Commissioner'; src:url('/fonts/commissioner-var.woff2') format('woff2');
+  font-weight:500 600; font-style:normal; font-display:swap;
+}
+/* metric-matched fallbacks — fallback occupies the same box as the webfont, so no layout shift on swap */
+@font-face{
+  font-family:'Literata Fallback'; src:local('Georgia');
+  ascent-override:110.27%; descent-override:28.86%; line-gap-override:0%; size-adjust:106.74%;
+}
+@font-face{
+  font-family:'Commissioner Fallback'; src:local('Arial');
+  ascent-override:100.38%; descent-override:20.33%; line-gap-override:0%; size-adjust:101.32%;
+}
 :root{
   --bg:#FAF7F0; --raised:#F3EFE6; --ink:#1A1A17; --muted:#5A5750;
   --hairline:#E2DED4; --accent:#133A7C; --accent-hover:#0E2C5E;
-  --display:'Commissioner','Inter',system-ui,sans-serif;
-  --body:'Literata',Georgia,'Times New Roman',serif;
+  --display:'Commissioner','Commissioner Fallback','Inter',system-ui,sans-serif;
+  --body:'Literata','Literata Fallback',Georgia,'Times New Roman',serif;
   /* spacing — 8px-based scale, one token per role */
   --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
   --measure:34rem; --rail:9rem; --gap:2.75rem;
@@ -59,11 +76,11 @@ body{
   margin:0; background:var(--bg); color:var(--ink);
   font-family:var(--body); font-size:var(--fs-body); line-height:1.6; font-weight:400;
   font-feature-settings:"kern" 1,"liga" 1,"onum" 1,"pnum" 1; /* oldstyle proportional figures + ligatures in serif prose */
-  font-optical-sizing:auto; /* Literata's opsz follows font-size automatically — one continuous cut, no display/text fork */
   hanging-punctuation:first last; overflow-x:hidden;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
 .tnum{font-feature-settings:"tnum" 1,"lnum" 1}
+.lnum{font-feature-settings:"lnum" 1,"pnum" 1} /* proportional lining — for brand names inline in oldstyle prose */
 .wrap{max-width:60rem; margin-inline:auto; padding:var(--s6) var(--s6) var(--s8)}
 
 /* labels / eyebrows — ONE size sitewide, ONE family (display); numerals set tabular+lining so they still align */
@@ -96,6 +113,7 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
 .section.hero{border-top:none; margin-top:0; padding-top:0;
   grid-template-columns:var(--rail) minmax(0,var(--measure)); align-items:start}
 .hero-id{display:flex; align-items:stretch; gap:var(--s5)}
+.hero-id picture{display:contents} /* keep the <img> as the flex item */
 .portrait{width:8.5rem; aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px; flex:0 0 auto}
 .hero-name{flex:1 1 auto; min-width:0; display:flex; flex-direction:column; justify-content:space-between}
 h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:500;
@@ -139,6 +157,14 @@ footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:v
 }
 @media (max-width:22rem){ .portrait{width:3.75rem} h1{font-size:1.4rem} }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* print / PDF — force light, monochrome, tight margins (visible link text already carries the URL) */
+@media print{
+  :root{ --bg:#fff; --raised:#fff; --ink:#111; --muted:#444; --hairline:#bbb; --accent:#111; --accent-hover:#111; }
+  body{ -webkit-print-color-adjust:exact; print-color-adjust:exact }
+  .wrap{ max-width:none; padding:0 }
+  .section{ break-inside:avoid; margin-top:var(--s7) }
+  .stage,.principle{ break-inside:avoid }
+}
 </style>
 </head>
 <body>
@@ -148,7 +174,11 @@ footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:v
     <div class="rail"></div>
     <div class="content">
       <div class="hero-id">
-        <img class="portrait" src="/headshot.png" width="512" height="512" alt="Evgeny Fayvuzhinskiy" fetchpriority="high" decoding="async">
+        <picture>
+          <source srcset="/headshot.avif" type="image/avif">
+          <source srcset="/headshot.webp" type="image/webp">
+          <img class="portrait" src="/headshot.png" width="512" height="512" alt="Evgeny Fayvuzhinskiy" fetchpriority="high" decoding="async">
+        </picture>
         <div class="hero-name"><h1>Evgeny<br>Fayvuzhinskiy</h1><p class="role-title">Chief Product Officer</p></div>
       </div>
       <p class="lead">Coming from the business side of fintech, I read product through its economics and grow leaders who own the hard calls.</p>
@@ -159,7 +189,7 @@ footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:v
   <section class="section">
     <div class="rail"><span class="num tnum">01</span><h2 class="kicker">Profile</h2></div>
     <div class="content">
-      <p>Eight years at Space307 &mdash; a trading platform for emerging markets across Asia and the Middle East &mdash; I priced the risk and built the monetization function before I ran product. It taught me to read a product through its economics, and to respect how hard the craft under it is.</p>
+      <p>Eight years at <span class="lnum">Space307</span> &mdash; a trading platform for emerging markets across Asia and the Middle East &mdash; I priced the risk and built the monetization function before I ran product. It taught me to read a product through its economics, and to respect how hard the craft under it is.</p>
       <p>My strongest work is the org. I rebuilt how my department decides: quicker, cheaper, evidence over opinion. I helped the wider company get deliberate about which bets earn rigor and which earn speed. When the call has to come before the data is clean, I make it and own it.</p>
       <p>I shaped the strategy the company runs on, and I lead by winning over people who don&rsquo;t report to me. The work I&rsquo;m proudest of is the people who outgrew the roles I gave them. I don&rsquo;t confuse motion with progress. I&rsquo;d rather name a hard problem early than paper over it.</p>
     </div>
