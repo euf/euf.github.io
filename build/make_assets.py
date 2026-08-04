@@ -207,8 +207,8 @@ def build_og():
         d.text((PADX, y), line, font=tag_f, fill=MUTED)
         y += 46
 
-    img.save(os.path.join(ROOT, "og.png"))
-    print("og.png (1200x630)")
+    img.save(os.path.join(ROOT, "og.jpg"), quality=90, optimize=True, progressive=True)
+    print("og.jpg (1200x630)")
 
 if __name__ == "__main__":
     build_favicons()
