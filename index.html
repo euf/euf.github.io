@@ -35,14 +35,13 @@
 <meta name="twitter:image" content="https://euf.github.io/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#FAF7F0; --raised:#F3EFE6; --ink:#1A1A17; --muted:#5A5750;
   --hairline:#E2DED4; --accent:#133A7C; --accent-hover:#0E2C5E;
   --display:'Commissioner','Inter',system-ui,sans-serif;
   --body:'Literata',Georgia,'Times New Roman',serif;
-  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
   /* spacing — 8px-based scale, one token per role */
   --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
   --measure:34rem; --rail:9rem; --gap:2.75rem;
@@ -59,15 +58,17 @@ html{font-size:18px;-webkit-text-size-adjust:100%}
 body{
   margin:0; background:var(--bg); color:var(--ink);
   font-family:var(--body); font-size:var(--fs-body); line-height:1.6; font-weight:400;
+  font-feature-settings:"kern" 1,"liga" 1,"onum" 1,"pnum" 1; /* oldstyle proportional figures + ligatures in serif prose */
+  font-optical-sizing:auto; /* Literata's opsz follows font-size automatically — one continuous cut, no display/text fork */
   hanging-punctuation:first last; overflow-x:hidden;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
 .tnum{font-feature-settings:"tnum" 1,"lnum" 1}
 .wrap{max-width:60rem; margin-inline:auto; padding:var(--s6) var(--s6) var(--s8)}
 
-/* labels / eyebrows — ONE size sitewide (display), mono variant for numerals */
-.kicker,.meta,.role-title,footer{font-family:var(--display); font-size:var(--fs-eyebrow)}
-.num,.years{font-family:var(--mono); font-size:var(--fs-eyebrow); font-feature-settings:"tnum" 1}
+/* labels / eyebrows — ONE size sitewide, ONE family (display); numerals set tabular+lining so they still align */
+.kicker,.meta,.role-title,footer{font-family:var(--display); font-size:var(--fs-eyebrow); font-weight:500}
+.num,.years{font-family:var(--display); font-size:var(--fs-eyebrow); font-weight:500; font-feature-settings:"tnum" 1,"lnum" 1}
 
 a{color:var(--accent); text-decoration-line:underline; text-decoration-thickness:1px;
   text-underline-offset:.16em; text-decoration-skip-ink:auto;
@@ -97,7 +98,7 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
 .hero-id{display:flex; align-items:stretch; gap:var(--s5)}
 .portrait{width:8.5rem; aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px; flex:0 0 auto}
 .hero-name{flex:1 1 auto; min-width:0; display:flex; flex-direction:column; justify-content:space-between}
-h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:600;
+h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:500;
   letter-spacing:-.015em; line-height:1.02; margin:0}
 .role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:0}
 .lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.45; margin:var(--s6) 0 0; max-width:var(--measure); text-wrap:pretty}
@@ -117,7 +118,7 @@ p{margin:var(--s5) 0 0; max-width:var(--measure); text-wrap:pretty}
 
 
 /* contact + footer */
-.contact{display:flex; flex-direction:column; gap:var(--s3); font-family:var(--display)}
+.contact{display:flex; flex-direction:column; gap:var(--s3); font-family:var(--display); font-weight:500}
 .contact .ci{display:inline-flex; align-items:center; gap:.55em; line-height:1}
 .contact .ci svg{width:24px; height:24px; fill:var(--accent); flex:0 0 auto; transform:translateY(.5px)}
 footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:var(--s4);
