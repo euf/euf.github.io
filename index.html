@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evgeny Fayvuzhinskiy — Chief Product Officer</title>
+<meta name="description" content="Evgeny Fayvuzhinskiy — Chief Product Officer at Space307. An ex-quant product executive who reads product through its economics and how the organization decides; product and monetization for a global trading platform in emerging markets.">
+<link rel="canonical" href="https://euf.github.io/">
+<link rel="alternate" hreflang="en" href="https://euf.github.io/">
+<link rel="alternate" hreflang="x-default" href="https://euf.github.io/">
+<meta name="author" content="Evgeny Fayvuzhinskiy">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#FAF7F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101216" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Evgeny Fayvuzhinskiy">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://euf.github.io/">
+<meta property="og:title" content="Evgeny Fayvuzhinskiy — Chief Product Officer">
+<meta property="og:description" content="An ex-quant product executive who reads product through its economics and how the organization decides. Product and monetization for a global trading platform in emerging markets.">
+<meta property="og:image" content="https://euf.github.io/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Evgeny Fayvuzhinskiy — Chief Product Officer">
+<meta property="profile:first_name" content="Evgeny">
+<meta property="profile:last_name" content="Fayvuzhinskiy">
+<meta property="profile:username" content="evgeny-fayvuzhinskiy">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Evgeny Fayvuzhinskiy — Chief Product Officer">
+<meta name="twitter:description" content="Ex-quant product leader — product economics and how organizations decide.">
+<meta name="twitter:image" content="https://euf.github.io/og.jpg">
+<link rel="preload" href="/fonts/literata-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/commissioner-var.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* self-hosted, Latin-subset variable fonts — no third-party requests */
+@font-face{
+  font-family:'Literata'; src:url('/fonts/literata-var.woff2') format('woff2');
+  font-weight:400 600; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Commissioner'; src:url('/fonts/commissioner-var.woff2') format('woff2');
+  font-weight:500 600; font-style:normal; font-display:swap;
+}
+/* metric-matched fallbacks — fallback occupies the same box as the webfont, so no layout shift on swap */
+@font-face{
+  font-family:'Literata Fallback'; src:local('Georgia');
+  ascent-override:110.27%; descent-override:28.86%; line-gap-override:0%; size-adjust:106.74%;
+}
+@font-face{
+  font-family:'Commissioner Fallback'; src:local('Arial');
+  ascent-override:100.38%; descent-override:20.33%; line-gap-override:0%; size-adjust:101.32%;
+}
+:root{
+  --bg:#FAF7F0; --raised:#F3EFE6; --ink:#1A1A17; --muted:#5A5750;
+  --hairline:#E2DED4; --accent:#133A7C; --accent-hover:#0E2C5E;
+  --display:'Commissioner','Commissioner Fallback','Inter',system-ui,sans-serif;
+  --body:'Literata','Literata Fallback',Georgia,'Times New Roman',serif;
+  /* spacing — 8px-based scale in rem so it scales with the root font (see html{}).
+     values below == 4/8/12/16/24/32/48/64/96/128px at the 18px base */
+  --s1:.222rem;--s2:.444rem;--s3:.667rem;--s4:.889rem;--s5:1.333rem;--s6:1.778rem;--s7:2.667rem;--s8:3.556rem;--s9:5.333rem;--s10:7.111rem;
+  --measure:34rem; --rail:8.27rem; --gap:2.75rem; /* rail column width AND the hero portrait size (one value). Tuned (148.8px) so the square portrait's bottom lands exactly on the CPO caps baseline on desktop. @container (min-width:33rem) flips the section to two columns */
+  /* type — a real descending scale with presence, not a timid cluster:
+     data 16 (quiet apparatus + rail labels) · body 18 · sub 22 (content subheads)
+     · lead ~24-27 (the hook, given weight) · name (fluid, dominant). */
+  --fs-data:.889rem; --fs-body:1rem; --fs-sub:1.222rem; /* 16/18/22px at the 18px base; rem so they track the root upscale */
+  --fs-role:clamp(1rem,5.6vw,1.25rem); /* CPO role-title; exposed so the hero portrait height can track it */
+  --fs-meta:calc(var(--fs-role) * 0.903); /* meta tracks the role size so the meta line always renders at 90% of the "CHIEF PRODUCT OFFICER" width. k=0.903 measured with em-based separator gaps; holds at every viewport since both meta and CPO scale with --fs-role */
+  --fs-lead:clamp(1.2rem,0.9rem + 1.4vw,1.5rem); /* 21.6 on 320 → 27 on desktop; stays clearly under the name */
+  --fs-h1:clamp(1.5rem,10vw - 5px,2.75rem); --ls-caps:.1em; /* name FILLS its column to the right of the photo: the column is ~vw − photo − gaps, so the size tracks vw (~27px @320 → 2.75rem cap by ~545). "Fayvuzhinskiy" is the constraining line; slope tuned so it nearly reaches the right edge without overflow */
+}
+@media (prefers-color-scheme:dark){
+  :root{ --bg:#101216; --raised:#181A20; --ink:#E8E4DA; --muted:#A29E95;
+         --hairline:#2E3036; --accent:#8AA6EA; --accent-hover:#A6BCF0; }
+}
+*{box-sizing:border-box}
+/* root font is the master scale: fixed 18px up to ~1400px, then a gentle fluid
+   upscale to 21px by ~2560px. Because type + spacing + measure are all rem, the
+   whole ledger grows as one unit on large screens — line-length in characters is
+   unchanged, the page just stops looking marooned on ultra-wide displays. */
+html{font-size:clamp(18px, 14.4px + 0.26vw, 21px); -webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--body); font-size:var(--fs-body); line-height:1.6; font-weight:400;
+  font-feature-settings:"kern" 1,"liga" 1,"onum" 1,"pnum" 1; /* oldstyle proportional figures + ligatures in serif prose */
+  hanging-punctuation:first last; overflow-x:hidden;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+.tnum{font-feature-settings:"tnum" 1,"lnum" 1}
+.lnum{font-feature-settings:"lnum" 1,"pnum" 1} /* proportional lining — for brand names inline in oldstyle prose */
+.wrap{max-width:50rem; margin-inline:auto; padding:var(--s6) clamp(var(--s4),4vw,var(--s6)) var(--s8); container-type:inline-size} /* frame hugs the ledger (rail 9 + gap 2.75 + measure 34 ≈ 45.75rem): rules & footer end at the content edge, no right-hand overshoot on wide screens */
+
+/* type roles, largest to smallest. Hierarchy is carried by size AND weight/case/
+   colour/family — not size alone:
+     name  (--fs-h1)   — dominant identity
+     lead  (--fs-lead) — the hook statement (serif), given real presence
+     sub   (--fs-sub)  — content subheads (ink, 600) · role-title CPO (CAPS, accent)
+     body  (--fs-body) — prose (serif)
+     data  (--fs-data) — rail labels .kicker (CAPS) · .years · .meta · footer · links
+                         — quiet apparatus (muted; links accent)
+   Case separates label (CAPS) from data (sentence); colour = function (links)
+   + the one identity accent (CPO). Data numerals are lining. */
+.kicker,.meta,.years,footer{font-family:var(--display); font-size:var(--fs-data); font-weight:500}
+.role-title{font-family:var(--display); font-size:var(--fs-role); font-weight:500; white-space:nowrap} /* fits one line down to 320 (text ≈ 14.5x font); cap 1.25rem is ≤74% of the name's floor, so always <90% of the name */
+.years{font-feature-settings:"tnum" 1,"lnum" 1}
+
+a{color:var(--accent); text-decoration-line:underline; text-decoration-thickness:1px;
+  text-underline-offset:.16em; text-decoration-skip-ink:auto;
+  transition:text-decoration-thickness .18s ease, color .18s ease}
+a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:1px}
+
+/* ledger layout — a single container query drives BOTH the column switch and the
+   rail alignment, so they can never disagree. It's container- (not viewport-)
+   driven: the section responds to its own width, works in any embedding.
+   Narrow → stacked (label above content, left-aligned).
+   Wide   → two columns (label pulled right to hug the content it introduces). */
+.section{display:block;
+  border-top:1px solid var(--hairline); padding-top:var(--s6); margin-top:var(--s8)} /* 64 above / 32 below the rule = 96 between sections (2:1) */
+.rail{margin-bottom:var(--s4)} /* gap to content when stacked */
+.rail:empty{margin-bottom:0} /* hero's empty rail must not add a phantom gap when stacked */
+.content{min-width:0; max-width:var(--measure)}
+@container (min-width:33rem){
+  .section{display:grid; grid-template-columns:var(--rail) minmax(0,var(--measure)); column-gap:var(--gap); align-items:baseline} /* rail label sits ON the content's first baseline, not merely top-aligned — kills the ~5px caps-vs-serif drift */
+  .rail{text-align:right; margin-bottom:0;
+    position:sticky; top:var(--s6)} /* the section label trails the reader down its own section, then the next section's rule pushes it off — a CSS-only "active section" marker, no JS. It has travel because align-items:baseline still gives the rail its full (taller) content-row height as the containing block */
+}
+.kicker{text-transform:uppercase; font-weight:500; letter-spacing:var(--ls-caps); color:var(--muted); margin:0; line-height:1.2}
+.content>*:first-child{margin-top:0}
+
+/* one sub-heading treatment across trajectory / focus / principles — heading tier (20),
+   sans + ink + 600; distinct from the CAPS/muted section name at the same size */
+.role,.principle h3{
+  font-family:var(--display); font-size:var(--fs-sub); font-weight:600; font-style:normal;
+  line-height:1.3; letter-spacing:0; margin:0; max-width:var(--measure); text-wrap:balance}
+
+/* HERO — its own grid. The portrait is a square that fills the rail column (--rail) and is
+   left-aligned in BOTH main layouts, so it never resizes or shifts across the breakpoint.
+   MOBILE: photo left, name (sized to FILL its column — see --fs-h1) bottom-aligned to its right,
+   then role / meta / lead full-width below (identity cluster name·CPO·meta, then the thesis).
+   DESKTOP: photo in the rail spanning the name + role rows; since --rail == the name→CPO-baseline
+   distance, the square's bottom lands exactly on the CPO baseline.
+   EXTREME NARROW (<~300px): drops to a single stacked column — see @container (max-width:15rem). */
+.section.hero{border-top:none; margin-top:0; padding-top:0;
+  display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:var(--s4); align-items:end;
+  grid-template-areas:"photo name" "role role" "meta meta" "lead lead"}
+.hero-photo{grid-area:photo}
+.hero-name{grid-area:name; align-self:end}
+.hero .role-title{grid-area:role}
+.hero .lead{grid-area:lead}
+.hero .meta{grid-area:meta}
+/* portrait — no frame, the crop is intentional; square, capped at the rail so it scales down on small phones */
+.portrait{width:min(28vw,var(--rail)); aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px} /* 28vw (not 30) buys the name column a few px on the narrowest phones, so the deliberately edge-filling name keeps a hair of slack cross-browser */
+@container (min-width:33rem){
+  .section.hero{grid-template-columns:var(--rail) minmax(0,var(--measure)); column-gap:var(--gap); align-items:start;
+    grid-template-areas:"photo name" "photo role" ".     meta" ".     lead"}
+  .portrait{width:100%} /* fills the rail; aspect-ratio 1 makes height == --rail → bottom on the CPO baseline */
+}
+/* EXTREME NARROW (< ~300px: sub-320 devices, deep embeds, heavy zoom). Below this the
+   photo|name row can't hold the name, so drop the whole hero to one column — the name
+   gets full width and stays clean. A safety context switch, not a breakpoint for real
+   phones; the --fs-h1 clamp is kept (full width makes its 27px floor fit with room). */
+@container (max-width:15rem){
+  .section.hero{grid-template-columns:1fr; align-items:start;
+    grid-template-areas:"photo" "name" "role" "meta" "lead"}
+  .hero-name{align-self:start; margin-top:var(--s3)}
+  .hero .role-title{white-space:normal} /* CPO is nowrap by default (tuned to fit to 320); sub-300 let it wrap to 2 lines instead of eating the padding / overflowing */
+}
+h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:500;
+  letter-spacing:-.022em; line-height:1.02; margin:0; overflow-wrap:break-word; text-wrap:balance} /* tighter tracking at display size; break-word is a dormant guardrail — only fires below 320px / under text-zoom, where wrapping beats clipping */
+.role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:var(--s5) 0 0; line-height:1.3} /* balanced 24 above; lead sits 24 below (see .lead) */
+.lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.32; margin:var(--s6) 0 0; max-width:var(--measure); text-wrap:balance} /* 32 above (one scale-step over the 24 cluster) — a beat that sets the serif thesis apart from the sans identity cluster, while staying subordinate to the 64 section break so the lead still reads as the hero's */
+.meta{font-size:var(--fs-meta); letter-spacing:.02em; color:var(--muted); line-height:1.3; font-feature-settings:"lnum" 1,"pnum" 1; /* lining figures, so Space307's 307 matches the 01/2017 data tier; 1.3 (not inherited 1.6) hugs the text so it binds to CPO instead of floating in a tall box */
+  margin:var(--s5) 0 0; display:flex; flex-wrap:wrap; gap:.8em; align-items:center} /* 24 above (s5) — tight identity cluster (name→CPO→meta all at 24); the lead then gets a 32 beat. Separator gap in em (not fixed px) so meta width scales purely with its font-size — that's what lets the 90%-of-CPO ratio hold at every viewport */
+.meta .sep{color:var(--muted)}
+.meta .mi{display:inline-flex; align-items:center; gap:var(--s3); white-space:nowrap}
+
+/* prose */
+p{margin:var(--s5) 0 0; max-width:var(--measure); text-wrap:pretty}
+
+/* titled blocks — trajectory + principles share identical spacing + dividers */
+.stage,.principle{padding:var(--s5) 0} /* separated by whitespace, not rules — the year + bold sub-head anchors each block; keeps section rules as the only dividers so hierarchy stays legible */
+.stage:first-child,.principle:first-child{padding-top:0}
+.years{display:block; color:var(--muted); letter-spacing:.02em; margin:0 0 var(--s2); white-space:nowrap}
+.stage p:not(.role),.principle p{margin:var(--s3) 0 0}
+
+
+/* contact + footer */
+.contact{display:flex; flex-direction:column; gap:var(--s3); font-family:var(--display); font-weight:500; font-size:var(--fs-data);
+  margin-top:var(--s5)} /* sits below the intent line; zeroed by the :first-child rule when no intro precedes it */
+.contact .ci{display:inline-flex; align-items:center; gap:.6em; line-height:1;
+  color:var(--accent); text-decoration:none} /* the whole row — icon + text — is one click target */
+.contact .ci svg{width:20px; height:20px; fill:var(--accent); flex:0 0 auto}
+.contact .ci span{text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px;
+  text-underline-offset:.16em; transition:text-decoration-color .18s ease} /* underline fades in on hover — lighter at rest */
+.contact .ci:hover span{text-decoration-color:currentColor}
+footer{margin-top:var(--s8); border-top:1px solid var(--hairline); padding-top:var(--s6);
+  letter-spacing:.02em; color:var(--muted); /* sentence-case colophon = data tier, not caps tracking */
+  display:flex; justify-content:space-between; gap:var(--s4)}
+
+/* no width breakpoints — layout & type above are intrinsically fluid.
+   what remains are context switches, not screen-size if/else: */
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* print / PDF — force light, monochrome, tight margins (visible link text already carries the URL) */
+@media print{
+  :root{ --bg:#fff; --raised:#fff; --ink:#111; --muted:#444; --hairline:#bbb; --accent:#111; --accent-hover:#111; }
+  body{ -webkit-print-color-adjust:exact; print-color-adjust:exact }
+  .wrap{ max-width:none; padding:0 }
+  .section{ break-inside:avoid; margin-top:var(--s7) }
+  .stage,.principle{ break-inside:avoid }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="section hero">
+    <picture class="hero-photo">
+      <source srcset="/headshot.avif" type="image/avif">
+      <source srcset="/headshot.webp" type="image/webp">
+      <img class="portrait" src="/headshot.png" width="512" height="512" alt="Evgeny Fayvuzhinskiy" fetchpriority="high" decoding="async">
+    </picture>
+    <h1 class="hero-name">Evgeny<br>Fayvuzhinskiy</h1>
+    <p class="role-title">Chief Product Officer</p>
+    <p class="meta"><span class="mi">Space307</span><span class="sep">&middot;</span><span class="mi">Limassol, Cyprus</span></p>
+    <p class="lead">I read product through its economics, decide fast on argued bets, and hand the hard calls off early.</p>
+  </header>
+
+  <section class="section">
+    <div class="rail"><h2 class="kicker">Profile</h2></div>
+    <div class="content">
+      <p>For eight years at <span class="lnum">Space307</span>, a global trading platform, I priced the risk and built the monetization function before I ran product. Economics and craft are both necessary, but neither alone makes a product thrive.</p>
+      <p>What makes it thrive is organizational, and it&rsquo;s my best work. We used to move only at near-certainty: months of research, long A/B tests. I pushed us to fast, cheap bets argued from the evidence at hand, with heavy tests saved for where the payoff is real. Work that took a quarter now ships in a sprint. When a call can&rsquo;t wait for clean data, I make it and sign it.</p>
+      <p>On paper I&rsquo;m in charge of most of this; in practice I lead it by handing ownership out early and backing the people who take it. When something&rsquo;s wrong, I name it plainly.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="rail"><h2 class="kicker">Point of view</h2></div>
+    <div class="content">
+      <p>A belief I build and hire against: product durability is an economics problem before it&rsquo;s a feature problem. In a category like mine, where regulation closes in and growth gets expensive, the products that last are the ones whose unit economics still hold once the easy wins are gone. I&rsquo;d rather get the money model right than repaint the funnel.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="rail"><h2 class="kicker">Trajectory</h2></div>
+    <div class="content">
+      <div class="stage">
+        <span class="years tnum">2017&thinsp;&ndash;&thinsp;2022</span>
+        <div><h3 class="role">Quant &middot; Risk Management</h3>
+        <p>With a Master&rsquo;s in financial mathematics, I started as a quant, owning the pricing and risk end of the book: how every instrument we trade is priced and hedged. I grew from junior to senior, and the hardest live-market decisions landed on my desk.</p></div>
+      </div>
+      <div class="stage">
+        <span class="years tnum">2022&thinsp;&ndash;&thinsp;2025</span>
+        <div><h3 class="role">Monetization Lead</h3>
+        <p>At the time, monetization wasn&rsquo;t a function yet, just scattered across teams and owned by no one. Leadership carved it out and handed it to me, and I built it from scratch: new instruments designed around how people trade, partner-network economics, retention trade-offs, and the team of quants and analysts that runs it today. This is where I stopped doing the analysis and started leading the people who do it, and where I first had a hand in company strategy.</p></div>
+      </div>
+      <div class="stage">
+        <span class="years tnum">2026&thinsp;&ndash;&thinsp;Now</span>
+        <div><h3 class="role">Chief Product Officer</h3>
+        <p>I own product end to end: five cross-functional delivery streams, plus design, research, a growth-experimentation function, and monetization, which I brought with me. I sit on the company&rsquo;s management team. I inherited four sound streams and built on them: redrew where each one&rsquo;s ownership starts and stops, and stood up a fifth to find new business models. That was the easy part. The real work is how we run inside it: the streams stopped chasing their own metrics and started closing the gaps between them, and every roadmap review now starts in the unit economics.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="rail"><h2 class="kicker">How I lead</h2></div>
+    <div class="content">
+      <div class="principle"><h3>The constraint is never where it was last quarter.</h3><p>These days AI makes shipping cheap, so the bottleneck moved from how fast we build to how well we decide. I&rsquo;ve been shifting the org&rsquo;s weight from execution to judgment ever since.</p></div>
+      <div class="principle"><h3>A model tells you where to look, not what to do.</h3><p>I built these models for years, so I know their limits. What matters is telling the bets that compound from the ones that just demo well.</p></div>
+      <div class="principle"><h3>The people calls are the ones to get right.</h3><p>Hiring well and growing the people with runway is the part I love; letting someone go is the part I most respect. I do both early and honestly, with as much care for the person leaving as for the team staying.</p></div>
+      <div class="principle"><h3>Know when to tune the engine and when to swap it.</h3><p>Most of the work is tuning how the money gets made. The rarer, more valuable call is reading where regulation and the market are heading, and knowing when tuning stops paying and the engine has to change, before the numbers say so.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="rail"><h2 class="kicker">Contact</h2></div>
+    <div class="content">
+      <p>Where I&rsquo;m most useful outside my own company is the money model: pricing, unit economics, and building monetization as a function. I take the occasional talk, mentor when I can, and I&rsquo;m always glad to hear from anyone building something where the economics are the hard part.</p>
+      <div class="contact">
+        <a class="ci" href="https://www.linkedin.com/in/evgeny-fayvuzhinskiy/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg><span>linkedin.com/in/evgeny-fayvuzhinskiy</span></a>
+        <a class="ci" href="mailto:e.u.f@icloud.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m-.4 4.25-6.54 4.09c-.65.41-1.47.41-2.12 0L4.4 8.25c-.25-.16-.4-.43-.4-.72 0-.67.73-1.07 1.3-.72L12 11l6.7-4.19c.57-.35 1.3.05 1.3.72 0 .29-.15.56-.4.72"/></svg><span>e.u.f@icloud.com</span></a>
+        <a class="ci" href="https://t.me/epicwin"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg><span>t.me/epicwin</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Evgeny Fayvuzhinskiy</span>
+    <span class="tnum">&copy; 2026</span>
+  </footer>
+</main>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Person","@id":"https://euf.github.io/#person","name":"Evgeny Fayvuzhinskiy","alternateName":["Евгений Файвужинский","Evgenii Faivuzhinskii","Evgeny Faivuzhinskiy","Yevgeny Fayvuzhinskiy"],"jobTitle":"Chief Product Officer","description":"Chief Product Officer at Space307, a global trading platform serving emerging markets. An ex-quant product executive who reads product through its economics and how the organization decides.","image":"https://euf.github.io/headshot.png","worksFor":{"@id":"https://euf.github.io/#space307"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"European University at St. Petersburg"},{"@type":"CollegeOrUniversity","name":"HSE University"}],"knowsAbout":["product management","monetization","product economics","pricing","unit economics","risk modeling","trading products","retention","organizational design","decision-making","product strategy","behavioral design"],"url":"https://euf.github.io/","address":{"@type":"PostalAddress","addressLocality":"Limassol","addressCountry":"CY"},"sameAs":["https://www.linkedin.com/in/evgeny-fayvuzhinskiy/","https://t.me/epicwin"]},
+{"@type":"Organization","@id":"https://euf.github.io/#space307","name":"Space307"},
+{"@type":"WebSite","@id":"https://euf.github.io/#website","url":"https://euf.github.io/","name":"Evgeny Fayvuzhinskiy","author":{"@id":"https://euf.github.io/#person"},"about":{"@id":"https://euf.github.io/#person"},"inLanguage":"en"}
+]}
+</script>
+</body>
+</html>
