@@ -102,7 +102,7 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
 
 /* ledger grid — identical template for every section */
 .section{display:grid; grid-template-columns:var(--rail) minmax(0,var(--measure)); gap:var(--gap);
-  border-top:1px solid var(--hairline); padding-top:var(--s6); margin-top:var(--s9)}
+  border-top:1px solid var(--hairline); padding-top:var(--s6); margin-top:var(--s8)} /* 64 above / 32 below the rule = 96 between sections (2:1); rule opens each section */
 .rail{display:flex; flex-direction:column; gap:var(--s2)}
 .num{font-weight:500; color:var(--accent); letter-spacing:.02em}
 .kicker{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--muted); margin:0; line-height:1.2}
@@ -146,7 +146,7 @@ p{margin:var(--s5) 0 0; max-width:var(--measure); text-wrap:pretty}
 .contact{display:flex; flex-direction:column; gap:var(--s3); font-family:var(--display); font-weight:500}
 .contact .ci{display:inline-flex; align-items:center; gap:.55em; line-height:1}
 .contact .ci svg{width:24px; height:24px; fill:var(--accent); flex:0 0 auto; transform:translateY(.5px)}
-footer{margin-top:var(--s9); border-top:1px solid var(--hairline); padding-top:var(--s4);
+footer{margin-top:var(--s8); border-top:1px solid var(--hairline); padding-top:var(--s6);
   letter-spacing:var(--ls-caps); color:var(--muted);
   display:flex; justify-content:space-between; gap:var(--s4)}
 
