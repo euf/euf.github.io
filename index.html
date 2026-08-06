@@ -113,13 +113,13 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
 .section.hero{border-top:none; margin-top:0; padding-top:0;
   grid-template-columns:var(--rail) minmax(0,var(--measure)); align-items:start}
 .hero-id{display:flex; align-items:stretch; gap:var(--s5)}
-.hero-id picture{display:contents} /* keep the <img> as the flex item */
-.portrait{width:8.5rem; aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px; flex:0 0 auto}
+.hero-id picture{display:block; flex:0 0 auto} /* picture is the flex item; display:contents injected a phantom leading gap (~48px) before the photo under flex `gap` */
+.portrait{width:8.5rem; aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px}
 .hero-name{flex:1 1 auto; min-width:0; display:flex; flex-direction:column; justify-content:space-between}
 h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:500;
   letter-spacing:-.015em; line-height:1.02; margin:0}
 .role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:0}
-.lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.45; margin:var(--s6) 0 0; max-width:var(--measure); text-wrap:pretty}
+.lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.45; margin:var(--s6) 0 0; max-width:var(--measure); text-wrap:balance}
 .meta{letter-spacing:.02em; color:var(--muted);
   margin:var(--s5) 0 0; display:flex; flex-wrap:wrap; gap:var(--s4); align-items:center}
 .meta .sep{color:var(--hairline)}
