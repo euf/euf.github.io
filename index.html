@@ -61,10 +61,11 @@
   --body:'Literata','Literata Fallback',Georgia,'Times New Roman',serif;
   /* spacing — 8px-based scale, one token per role */
   --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
-  --measure:34rem; --rail:9rem; --gap:2.75rem;
-  /* type — one modular scale (base 18px), all rem; ONE label size */
-  --fs-eyebrow:.8rem; --fs-body:1rem; --fs-lead:clamp(1.15rem,2.6vw,1.35rem);
-  --fs-h1:2.9rem; --ls-caps:.1em;
+  --measure:34rem; --rail:9rem; --gap:2.75rem; --content-min:20rem; /* content narrower than this next to the rail → sidebar wraps to one column */
+  /* type — data · body · head · fluid name. name's clamp floor (1.7rem ≈ 30px) is
+     kept above --fs-head so the name can never scale below the previous step. */
+  --fs-data:16px; --fs-body:18px; --fs-head:20px;
+  --fs-h1:clamp(1.7rem,0.7rem + 4.8vw,2.75rem); --ls-caps:.1em;
 }
 @media (prefers-color-scheme:dark){
   :root{ --bg:#18191D; --raised:#212228; --ink:#E8E4DA; --muted:#A29E95;
@@ -81,18 +82,20 @@ body{
 }
 .tnum{font-feature-settings:"tnum" 1,"lnum" 1}
 .lnum{font-feature-settings:"lnum" 1,"pnum" 1} /* proportional lining — for brand names inline in oldstyle prose */
-.wrap{max-width:60rem; margin-inline:auto; padding:var(--s6) var(--s6) var(--s8)}
+.wrap{max-width:60rem; margin-inline:auto; padding:var(--s6) clamp(var(--s4),4vw,var(--s6)) var(--s8)} /* fluid side padding, 16→32 */
 
-/* labels / eyebrows — ONE size, ONE family (display). A 2x2 system:
-   CASE encodes label-vs-data (UPPERCASE = named label · sentence = index/data),
-   COLOR encodes spine-vs-support (accent = identity/index · muted = supporting).
-     UPPERCASE+accent = .role-title (the one identity line)
-     UPPERCASE+muted  = .kicker     (section labels)
-     sentence +accent = .num        (section index 01–05)
-     sentence +muted  = .meta,.years (facts: company/location, dates)
-   numerals set tabular+lining so they still align. */
-.kicker,.meta,.role-title,footer{font-family:var(--display); font-size:var(--fs-eyebrow); font-weight:500}
-.num,.years{font-family:var(--display); font-size:var(--fs-eyebrow); font-weight:500; font-feature-settings:"tnum" 1,"lnum" 1}
+/* type roles map to three sizes. SIZE sets the level; family, case, colour and
+   weight set the kind within a level:
+     head (--fs-head) — lead (serif) · section names .kicker (CAPS, muted)
+        · subheads (ink, 600) · role-title CPO (CAPS, accent)
+     body (--fs-body) — prose (serif)
+     data (--fs-data) — .years dates · .meta facts · footer · links (sans, muted;
+        links accent) — quiet apparatus
+   Case separates label (CAPS) from data (sentence); colour = function (links)
+   + the one identity accent (CPO). Data numerals are lining. */
+.meta,.years,footer{font-family:var(--display); font-size:var(--fs-data); font-weight:500}
+.kicker,.role-title{font-family:var(--display); font-size:var(--fs-head); font-weight:500}
+.years{font-feature-settings:"tnum" 1,"lnum" 1}
 
 a{color:var(--accent); text-decoration-line:underline; text-decoration-thickness:1px;
   text-underline-offset:.16em; text-decoration-skip-ink:auto;
@@ -100,34 +103,37 @@ a{color:var(--accent); text-decoration-line:underline; text-decoration-thickness
 a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
 :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:1px}
 
-/* ledger grid — identical template for every section */
-.section{display:grid; grid-template-columns:var(--rail) minmax(0,var(--measure)); gap:var(--gap);
-  border-top:1px solid var(--hairline); padding-top:var(--s6); margin-top:var(--s8)} /* 64 above / 32 below the rule = 96 between sections (2:1); rule opens each section */
-.rail{display:flex; flex-direction:column; gap:var(--s2)}
-.num{font-weight:500; color:var(--accent); letter-spacing:.02em}
-.kicker{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--muted); margin:0; line-height:1.2}
+/* ledger layout — intrinsic sidebar: rail (section label) + content sit side by side
+   when there's room and stack when there isn't. No width breakpoint — the wrap point
+   is derived from --rail + --content-min. */
+.section{display:flex; flex-wrap:wrap; align-items:start; gap:0 var(--gap);
+  border-top:1px solid var(--hairline); padding-top:var(--s6); margin-top:var(--s8)} /* 64 above / 32 below the rule = 96 between sections (2:1) */
+.rail{flex:0 1 var(--rail); margin-bottom:var(--s4)} /* margin-bottom is the gap to content, and only shows when stacked */
+.rail:empty{margin-bottom:0} /* hero's empty rail must not add a phantom gap when stacked */
+.content{flex:999 1 var(--content-min); min-width:0; max-width:var(--measure)}
+.kicker{text-transform:uppercase; font-weight:500; letter-spacing:var(--ls-caps); color:var(--muted); margin:0; line-height:1.2}
 .content>*:first-child{margin-top:0}
 
-/* one sub-heading treatment across trajectory / focus / principles
-   — hierarchy carried by weight + family + color, not size (body-size, never bigger than the eyebrow marker) */
+/* one sub-heading treatment across trajectory / focus / principles — heading tier (20),
+   sans + ink + 600; distinct from the CAPS/muted section name at the same size */
 .role,.principle h3{
-  font-family:var(--display); font-size:var(--fs-body); font-weight:600; font-style:normal;
+  font-family:var(--display); font-size:var(--fs-head); font-weight:600; font-style:normal;
   line-height:1.3; letter-spacing:0; margin:0; max-width:var(--measure)}
 
-/* hero — photo + name are ONE unit (never split, incl. mobile) that fills the
-   content column (= body text-column width); the name-block matches the photo's
-   height, pinning the name to the top and the role to the bottom (glue between) */
-.section.hero{border-top:none; margin-top:0; padding-top:0;
-  grid-template-columns:var(--rail) minmax(0,var(--measure)); align-items:start}
-.hero-id{display:flex; align-items:stretch; gap:var(--s5)}
+/* hero — photo + name sit on one row, bottom-aligned (the name nestles at the
+   photo's baseline); the role drops to its own line below. The name is fluid, so
+   it scales with the photo and the bottom alignment holds at every width — no
+   breakpoint. */
+.section.hero{border-top:none; margin-top:0; padding-top:0}
+.hero-id{display:flex; flex-wrap:wrap; align-items:center; gap:var(--s5)}
 .hero-id picture{display:block; flex:0 0 auto} /* picture is the flex item; display:contents injected a phantom leading gap (~48px) before the photo under flex `gap` */
-.portrait{width:8.5rem; aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px}
-.hero-name{flex:1 1 auto; min-width:0; display:flex; flex-direction:column; justify-content:space-between}
+.hero-id h1{flex:1 1 auto; min-width:0}
+.portrait{width:min(8.5rem,26vw); aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px} /* fixed 8.5rem on desktop, shrinks with the viewport on small screens */
 h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:500;
   letter-spacing:-.015em; line-height:1.02; margin:0}
-.role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:0}
-.lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.45; margin:var(--s6) 0 0; max-width:var(--measure); text-wrap:balance}
-.meta{letter-spacing:.02em; color:var(--muted);
+.role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:var(--s3) 0 0} /* its own line below the photo + name row */
+.lead{font-family:var(--body); font-size:var(--fs-head); line-height:1.45; margin:var(--s6) 0 0; max-width:var(--measure); text-wrap:balance}
+.meta{letter-spacing:.02em; color:var(--muted); font-feature-settings:"lnum" 1,"pnum" 1; /* lining figures, so Space307's 307 matches the 01/2017 data tier */
   margin:var(--s6) 0 0; display:flex; flex-wrap:wrap; gap:var(--s4); align-items:center}
 .meta .sep{color:var(--hairline)}
 .meta .mi{display:inline-flex; align-items:center; gap:var(--s3); white-space:nowrap}
@@ -143,26 +149,19 @@ p{margin:var(--s5) 0 0; max-width:var(--measure); text-wrap:pretty}
 
 
 /* contact + footer */
-.contact{display:flex; flex-direction:column; gap:var(--s3); font-family:var(--display); font-weight:500}
-.contact .ci{display:inline-flex; align-items:center; gap:.55em; line-height:1}
-.contact .ci svg{width:24px; height:24px; fill:var(--accent); flex:0 0 auto; transform:translateY(.5px)}
+.contact{display:flex; flex-direction:column; gap:var(--s3); font-family:var(--display); font-weight:500; font-size:var(--fs-data)}
+.contact .ci{display:inline-flex; align-items:center; gap:.6em; line-height:1;
+  color:var(--accent); text-decoration:none} /* the whole row — icon + text — is one click target */
+.contact .ci svg{width:20px; height:20px; fill:var(--accent); flex:0 0 auto}
+.contact .ci span{text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px;
+  text-underline-offset:.16em; transition:text-decoration-color .18s ease} /* underline fades in on hover — lighter at rest */
+.contact .ci:hover span{text-decoration-color:currentColor}
 footer{margin-top:var(--s8); border-top:1px solid var(--hairline); padding-top:var(--s6);
-  letter-spacing:var(--ls-caps); color:var(--muted);
+  letter-spacing:.02em; color:var(--muted); /* sentence-case colophon = data tier, not caps tracking */
   display:flex; justify-content:space-between; gap:var(--s4)}
 
-@media (max-width:46rem){
-  .wrap{padding:var(--s6) var(--s5) var(--s7)}
-  .section{grid-template-columns:1fr; gap:var(--s4); margin-top:var(--s8)}
-  .section.hero{grid-template-columns:1fr}
-  .hero-id{gap:var(--s4)}
-  .portrait{width:5.5rem}
-  h1{font-size:clamp(1.7rem,6vw,2.3rem)}
-  .rail{flex-direction:row; align-items:baseline; gap:var(--s3)}
-  .lead{max-width:none}
-  .meta{gap:var(--s3)}
-  .meta .mi{gap:var(--s2)}
-}
-@media (max-width:22rem){ .portrait{width:3.75rem} h1{font-size:1.4rem} }
+/* no width breakpoints — layout & type above are intrinsically fluid.
+   what remains are context switches, not screen-size if/else: */
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 /* print / PDF — force light, monochrome, tight margins (visible link text already carries the URL) */
 @media print{
@@ -186,15 +185,16 @@ footer{margin-top:var(--s8); border-top:1px solid var(--hairline); padding-top:v
           <source srcset="/headshot.webp" type="image/webp">
           <img class="portrait" src="/headshot.png" width="512" height="512" alt="Evgeny Fayvuzhinskiy" fetchpriority="high" decoding="async">
         </picture>
-        <div class="hero-name"><h1>Evgeny<br>Fayvuzhinskiy</h1><p class="role-title">Chief Product Officer</p></div>
+        <h1>Evgeny<br>Fayvuzhinskiy</h1>
       </div>
+      <p class="role-title">Chief Product Officer</p>
       <p class="lead">Coming from the business side of fintech, I read product through its economics and grow leaders who own the hard calls.</p>
       <p class="meta"><span class="mi">Space307</span><span class="sep">&middot;</span><span class="mi">Limassol, Cyprus</span></p>
     </div>
   </header>
 
   <section class="section">
-    <div class="rail"><span class="num tnum">01</span><h2 class="kicker">Profile</h2></div>
+    <div class="rail"><h2 class="kicker">Profile</h2></div>
     <div class="content">
       <p>Eight years at <span class="lnum">Space307</span> &mdash; a trading platform for emerging markets across Asia and the Middle East &mdash; I priced the risk and built the monetization function before I ran product. It taught me to read a product through its economics, and to respect how hard the craft under it is.</p>
       <p>My strongest work is the org. I rebuilt how my department decides: quicker, cheaper, evidence over opinion. And I set how the wider company now decides which bets earn a rigorous test and which earn a fast, argued call &mdash; rigor where it&rsquo;s measurable, judgment where it isn&rsquo;t. When a call has to come before the data is clean, I make it and put my name on it.</p>
@@ -203,14 +203,14 @@ footer{margin-top:var(--s8); border-top:1px solid var(--hairline); padding-top:v
   </section>
 
   <section class="section">
-    <div class="rail"><span class="num tnum">02</span><h2 class="kicker">Point of view</h2></div>
+    <div class="rail"><h2 class="kicker">Point of view</h2></div>
     <div class="content">
       <p>A conviction I build and hire against: product durability is an economics problem before it&rsquo;s a feature problem. In a category like this one &mdash; regulation tightening, growth getting expensive &mdash; the products that last are the ones whose unit economics still work once the easy wins are gone. I&rsquo;d rather get the money model right than repaint the funnel.</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="rail"><span class="num tnum">03</span><h2 class="kicker">Trajectory</h2></div>
+    <div class="rail"><h2 class="kicker">Trajectory</h2></div>
     <div class="content">
       <div class="stage">
         <span class="years tnum">2017&ndash;2022</span>
@@ -231,7 +231,7 @@ footer{margin-top:var(--s8); border-top:1px solid var(--hairline); padding-top:v
   </section>
 
   <section class="section">
-    <div class="rail"><span class="num tnum">04</span><h2 class="kicker">How I lead</h2></div>
+    <div class="rail"><h2 class="kicker">How I lead</h2></div>
     <div class="content">
       <div class="principle"><h3>The constraint is never where it was last quarter.</h3><p>I moved a product org off measuring everything toward fast, cheap, evidence-first bets. When the bottleneck moved from shipping to deciding, I moved it again.</p></div>
       <div class="principle"><h3>The model is a tool, not a verdict.</h3><p>My quant years taught me to read the numbers as evidence, not a ruling. The job is separating the bets that compound in the economics from the ones that just demo well.</p></div>
@@ -241,12 +241,12 @@ footer{margin-top:var(--s8); border-top:1px solid var(--hairline); padding-top:v
   </section>
 
   <section class="section">
-    <div class="rail"><span class="num tnum">05</span><h2 class="kicker">Contact</h2></div>
+    <div class="rail"><h2 class="kicker">Contact</h2></div>
     <div class="content">
       <div class="contact">
-        <span class="ci"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg><a href="https://www.linkedin.com/in/evgeny-fayvuzhinskiy/">linkedin.com/in/evgeny-fayvuzhinskiy</a></span>
-        <span class="ci"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m-.4 4.25-6.54 4.09c-.65.41-1.47.41-2.12 0L4.4 8.25c-.25-.16-.4-.43-.4-.72 0-.67.73-1.07 1.3-.72L12 11l6.7-4.19c.57-.35 1.3.05 1.3.72 0 .29-.15.56-.4.72"/></svg><a href="mailto:e.u.f@icloud.com">e.u.f@icloud.com</a></span>
-        <span class="ci"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg><a href="https://t.me/epicwin">t.me/epicwin</a></span>
+        <a class="ci" href="https://www.linkedin.com/in/evgeny-fayvuzhinskiy/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg><span>linkedin.com/in/evgeny-fayvuzhinskiy</span></a>
+        <a class="ci" href="mailto:e.u.f@icloud.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m-.4 4.25-6.54 4.09c-.65.41-1.47.41-2.12 0L4.4 8.25c-.25-.16-.4-.43-.4-.72 0-.67.73-1.07 1.3-.72L12 11l6.7-4.19c.57-.35 1.3.05 1.3.72 0 .29-.15.56-.4.72"/></svg><span>e.u.f@icloud.com</span></a>
+        <a class="ci" href="https://t.me/epicwin"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg><span>t.me/epicwin</span></a>
       </div>
     </div>
   </section>
