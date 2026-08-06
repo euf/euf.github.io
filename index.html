@@ -83,7 +83,14 @@ body{
 .lnum{font-feature-settings:"lnum" 1,"pnum" 1} /* proportional lining — for brand names inline in oldstyle prose */
 .wrap{max-width:60rem; margin-inline:auto; padding:var(--s6) var(--s6) var(--s8)}
 
-/* labels / eyebrows — ONE size sitewide, ONE family (display); numerals set tabular+lining so they still align */
+/* labels / eyebrows — ONE size, ONE family (display). A 2x2 system:
+   CASE encodes label-vs-data (UPPERCASE = named label · sentence = index/data),
+   COLOR encodes spine-vs-support (accent = identity/index · muted = supporting).
+     UPPERCASE+accent = .role-title (the one identity line)
+     UPPERCASE+muted  = .kicker     (section labels)
+     sentence +accent = .num        (section index 01–05)
+     sentence +muted  = .meta,.years (facts: company/location, dates)
+   numerals set tabular+lining so they still align. */
 .kicker,.meta,.role-title,footer{font-family:var(--display); font-size:var(--fs-eyebrow); font-weight:500}
 .num,.years{font-family:var(--display); font-size:var(--fs-eyebrow); font-weight:500; font-feature-settings:"tnum" 1,"lnum" 1}
 
@@ -97,7 +104,7 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
 .section{display:grid; grid-template-columns:var(--rail) minmax(0,var(--measure)); gap:var(--gap);
   border-top:1px solid var(--hairline); padding-top:var(--s6); margin-top:var(--s9)}
 .rail{display:flex; flex-direction:column; gap:var(--s2)}
-.num{font-weight:500; color:var(--accent); letter-spacing:.01em}
+.num{font-weight:500; color:var(--accent); letter-spacing:.02em}
 .kicker{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--muted); margin:0; line-height:1.2}
 .content>*:first-child{margin-top:0}
 
@@ -121,7 +128,7 @@ h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:500;
 .role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:0}
 .lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.45; margin:var(--s6) 0 0; max-width:var(--measure); text-wrap:balance}
 .meta{letter-spacing:.02em; color:var(--muted);
-  margin:var(--s5) 0 0; display:flex; flex-wrap:wrap; gap:var(--s4); align-items:center}
+  margin:var(--s6) 0 0; display:flex; flex-wrap:wrap; gap:var(--s4); align-items:center}
 .meta .sep{color:var(--hairline)}
 .meta .mi{display:inline-flex; align-items:center; gap:var(--s3); white-space:nowrap}
 
