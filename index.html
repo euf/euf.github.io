@@ -97,7 +97,7 @@ body{
    Case separates label (CAPS) from data (sentence); colour = function (links)
    + the one identity accent (CPO). Data numerals are lining. */
 .kicker,.meta,.years,footer{font-family:var(--display); font-size:var(--fs-data); font-weight:500}
-.role-title{font-family:var(--display); font-size:var(--fs-sub); font-weight:500}
+.role-title{font-family:var(--display); font-size:clamp(1rem,5.6vw,1.25rem); font-weight:500; white-space:nowrap} /* fits one line down to 320 (text ≈ 14.5x font); cap 1.25rem is ≤74% of the name's floor, so always <90% of the name */
 .years{font-feature-settings:"tnum" 1,"lnum" 1}
 
 a{color:var(--accent); text-decoration-line:underline; text-decoration-thickness:1px;
@@ -134,8 +134,8 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
 .portrait{width:min(7rem,24vw); aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px} /* sized close to the name block so bottom-alignment reads clean; shrinks with the viewport */
 h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:500;
   letter-spacing:-.015em; line-height:1.02; margin:0}
-.role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:var(--s3) 0 0} /* its own line below the photo + name row */
-.lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.32; margin:var(--s6) 0 0; max-width:var(--measure); text-wrap:balance}
+.role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:var(--s5) 0 0} /* balanced 24 above; lead sits 24 below (see .lead) */
+.lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.32; margin:var(--s5) 0 0; max-width:var(--measure); text-wrap:balance} /* 24 below the CPO line — balanced with the 24 above it */
 .meta{letter-spacing:.02em; color:var(--muted); font-feature-settings:"lnum" 1,"pnum" 1; /* lining figures, so Space307's 307 matches the 01/2017 data tier */
   margin:var(--s6) 0 0; display:flex; flex-wrap:wrap; gap:var(--s4); align-items:center}
 .meta .sep{color:var(--hairline)}
