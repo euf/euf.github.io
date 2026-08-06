@@ -128,12 +128,12 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
    it scales with the photo and the bottom alignment holds at every width — no
    breakpoint. */
 .section.hero{border-top:none; margin-top:0; padding-top:0}
-.hero-id{display:flex; flex-wrap:wrap; align-items:flex-end; gap:var(--s5)}
+.hero-id{display:flex; flex-wrap:wrap; align-items:flex-end; gap:var(--s4)} /* photo locked close to the name */
 .hero-id picture{display:block; flex:0 0 auto} /* picture is the flex item; display:contents injected a phantom leading gap (~48px) before the photo under flex `gap` */
 .hero-id h1{flex:1 1 auto; min-width:0}
 .portrait{width:min(7rem,24vw); aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px} /* sized close to the name block so bottom-alignment reads clean; shrinks with the viewport */
 h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:500;
-  letter-spacing:-.015em; line-height:1.02; margin:0}
+  letter-spacing:-.022em; line-height:1.02; margin:0} /* tighter tracking at display size */
 .role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:var(--s5) 0 0} /* balanced 24 above; lead sits 24 below (see .lead) */
 .lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.32; margin:var(--s5) 0 0; max-width:var(--measure); text-wrap:balance} /* 24 below the CPO line — balanced with the 24 above it */
 .meta{letter-spacing:.02em; color:var(--muted); font-feature-settings:"lnum" 1,"pnum" 1; /* lining figures, so Space307's 307 matches the 01/2017 data tier */
