@@ -61,15 +61,14 @@
   --body:'Literata','Literata Fallback',Georgia,'Times New Roman',serif;
   /* spacing — 8px-based scale, one token per role */
   --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
-  --measure:34rem; --rail:9rem; --gap:2.75rem; /* @container (min-width:33rem) flips the section to two columns */
+  --measure:34rem; --rail:8.27rem; --gap:2.75rem; /* rail column width AND the hero portrait size (one value). Tuned (148.8px) so the square portrait's bottom lands exactly on the CPO caps baseline on desktop. @container (min-width:33rem) flips the section to two columns */
   /* type — a real descending scale with presence, not a timid cluster:
      data 16 (quiet apparatus + rail labels) · body 18 · sub 22 (content subheads)
      · lead ~24-27 (the hook, given weight) · name (fluid, dominant). */
   --fs-data:16px; --fs-body:18px; --fs-sub:22px;
   --fs-role:clamp(1rem,5.6vw,1.25rem); /* CPO role-title; exposed so the hero portrait height can track it */
   --fs-lead:clamp(1.2rem,0.9rem + 1.4vw,1.5rem); /* 21.6 on 320 → 27 on desktop; stays clearly under the name */
-  --fs-h1:clamp(1.5rem,0.7rem + 4.8vw,2.75rem); --ls-caps:.1em; /* floor 1.5rem lets the name shrink enough to stay beside the photo down to 320 */
-  --lh-role:1.4; /* role line-height; the portrait's bottom lands on the caps baseline of this line */
+  --fs-h1:clamp(1.5rem,10vw - 5px,2.75rem); --ls-caps:.1em; /* name FILLS its column to the right of the photo: the column is ~vw − photo − gaps, so the size tracks vw (~27px @320 → 2.75rem cap by ~545). "Fayvuzhinskiy" is the constraining line; slope tuned so it nearly reaches the right edge without overflow */
 }
 @media (prefers-color-scheme:dark){
   :root{ --bg:#101216; --raised:#181A20; --ink:#E8E4DA; --muted:#A29E95;
@@ -131,33 +130,30 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
   font-family:var(--display); font-size:var(--fs-sub); font-weight:600; font-style:normal;
   line-height:1.3; letter-spacing:0; margin:0; max-width:var(--measure)}
 
-/* HERO — its own grid, not the ledger. MOBILE: photo left, name bottom-aligned to its
-   right, then role / lead / meta stacked full-width below. (DESKTOP layout — photo in the
-   rail column, bottom on the CPO baseline — is set in the container query above.) */
+/* HERO — its own grid. The portrait is a square that fills the rail column (--rail) and is
+   left-aligned in BOTH layouts, so it never resizes or shifts across the breakpoint.
+   MOBILE: photo left, name (sized to FILL its column — see --fs-h1) bottom-aligned to its right,
+   then role / lead / meta full-width below.
+   DESKTOP: photo in the rail spanning the name + role rows; since --rail == the name→CPO-baseline
+   distance, the square's bottom lands exactly on the CPO baseline. */
 .section.hero{border-top:none; margin-top:0; padding-top:0;
   display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:var(--s4); align-items:end;
   grid-template-areas:"photo name" "role role" "lead lead" "meta meta"}
-.hero-photo{grid-area:photo; display:block}
+.hero-photo{grid-area:photo}
 .hero-name{grid-area:name; align-self:end}
 .hero .role-title{grid-area:role}
 .hero .lead{grid-area:lead}
 .hero .meta{grid-area:meta}
-/* portrait — no frame, the crop is intentional; square, scales with the viewport */
-.portrait{width:min(9rem,30vw); aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px}
-/* HERO (desktop) — must come AFTER the mobile hero rules to win the cascade at equal specificity.
-   Portrait moves into the rail column and spans the name + role rows, so its bottom auto-lands on
-   the CPO baseline at any width; right-aligned onto the label spine. */
+/* portrait — no frame, the crop is intentional; square, capped at the rail so it scales down on small phones */
+.portrait{width:min(30vw,var(--rail)); aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px}
 @container (min-width:33rem){
   .section.hero{grid-template-columns:var(--rail) minmax(0,var(--measure)); column-gap:var(--gap); align-items:start;
     grid-template-areas:"photo name" "photo role" ".     lead" ".     meta"}
-  .hero-photo{grid-area:photo; justify-self:end; align-self:start}
-  /* deterministic height = two name lines + role gap + role line → bottom sits on the CPO baseline.
-     The name is always two <br>-split lines (line-height 1.02), so 2×1.02 = 2.04. Square, no crop. */
-  .portrait{width:auto; height:calc(2.04 * var(--fs-h1) + var(--s5) + var(--lh-role) * var(--fs-role)); aspect-ratio:1; min-height:0}
+  .portrait{width:100%} /* fills the rail; aspect-ratio 1 makes height == --rail → bottom on the CPO baseline */
 }
 h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:500;
   letter-spacing:-.022em; line-height:1.02; margin:0} /* tighter tracking at display size */
-.role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:var(--s5) 0 0; line-height:var(--lh-role)} /* balanced 24 above; lead sits 24 below (see .lead). line-height lands the portrait's bottom edge on the caps baseline (desktop) */
+.role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:var(--s5) 0 0; line-height:1.3} /* balanced 24 above; lead sits 24 below (see .lead) */
 .lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.32; margin:var(--s5) 0 0; max-width:var(--measure); text-wrap:balance} /* 24 below the CPO line — balanced with the 24 above it */
 .meta{letter-spacing:.02em; color:var(--muted); font-feature-settings:"lnum" 1,"pnum" 1; /* lining figures, so Space307's 307 matches the 01/2017 data tier */
   margin:var(--s6) 0 0; display:flex; flex-wrap:wrap; gap:var(--s4); align-items:center}
