@@ -61,13 +61,13 @@
   --body:'Literata','Literata Fallback',Georgia,'Times New Roman',serif;
   /* spacing — 8px-based scale, one token per role */
   --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
-  --measure:34rem; --rail:9rem; --gap:2.75rem; --content-min:20rem; /* content narrower than this next to the rail → sidebar wraps to one column */
+  --measure:34rem; --rail:9rem; --gap:2.75rem; /* @container (min-width:33rem) flips the section to two columns */
   /* type — a real descending scale with presence, not a timid cluster:
      data 16 (quiet apparatus + rail labels) · body 18 · sub 22 (content subheads)
      · lead ~24-27 (the hook, given weight) · name (fluid, dominant). */
   --fs-data:16px; --fs-body:18px; --fs-sub:22px;
   --fs-lead:clamp(1.2rem,0.9rem + 1.4vw,1.5rem); /* 21.6 on 320 → 27 on desktop; stays clearly under the name */
-  --fs-h1:clamp(1.7rem,0.7rem + 4.8vw,2.75rem); --ls-caps:.1em;
+  --fs-h1:clamp(1.5rem,0.7rem + 4.8vw,2.75rem); --ls-caps:.1em; /* floor 1.5rem lets the name shrink enough to stay beside the photo down to 320 */
 }
 @media (prefers-color-scheme:dark){
   :root{ --bg:#18191D; --raised:#212228; --ink:#E8E4DA; --muted:#A29E95;
@@ -84,7 +84,7 @@ body{
 }
 .tnum{font-feature-settings:"tnum" 1,"lnum" 1}
 .lnum{font-feature-settings:"lnum" 1,"pnum" 1} /* proportional lining — for brand names inline in oldstyle prose */
-.wrap{max-width:60rem; margin-inline:auto; padding:var(--s6) clamp(var(--s4),4vw,var(--s6)) var(--s8)} /* fluid side padding, 16→32 */
+.wrap{max-width:60rem; margin-inline:auto; padding:var(--s6) clamp(var(--s4),4vw,var(--s6)) var(--s8); container-type:inline-size} /* fluid side padding 16→32; container for the section layout switch */
 
 /* type roles, largest to smallest. Hierarchy is carried by size AND weight/case/
    colour/family — not size alone:
@@ -106,14 +106,20 @@ a{color:var(--accent); text-decoration-line:underline; text-decoration-thickness
 a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
 :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:1px}
 
-/* ledger layout — intrinsic sidebar: rail (section label) + content sit side by side
-   when there's room and stack when there isn't. No width breakpoint — the wrap point
-   is derived from --rail + --content-min. */
-.section{display:flex; flex-wrap:wrap; align-items:start; gap:0 var(--gap);
+/* ledger layout — a single container query drives BOTH the column switch and the
+   rail alignment, so they can never disagree. It's container- (not viewport-)
+   driven: the section responds to its own width, works in any embedding.
+   Narrow → stacked (label above content, left-aligned).
+   Wide   → two columns (label pulled right to hug the content it introduces). */
+.section{display:block;
   border-top:1px solid var(--hairline); padding-top:var(--s6); margin-top:var(--s8)} /* 64 above / 32 below the rule = 96 between sections (2:1) */
-.rail{flex:0 1 var(--rail); margin-bottom:var(--s4)} /* margin-bottom is the gap to content, and only shows when stacked */
+.rail{margin-bottom:var(--s4)} /* gap to content when stacked */
 .rail:empty{margin-bottom:0} /* hero's empty rail must not add a phantom gap when stacked */
-.content{flex:999 1 var(--content-min); min-width:0; max-width:var(--measure)}
+.content{min-width:0; max-width:var(--measure)}
+@container (min-width:33rem){
+  .section{display:grid; grid-template-columns:var(--rail) minmax(0,var(--measure)); column-gap:var(--gap); align-items:start}
+  .rail{text-align:right; margin-bottom:0}
+}
 .kicker{text-transform:uppercase; font-weight:500; letter-spacing:var(--ls-caps); color:var(--muted); margin:0; line-height:1.2}
 .content>*:first-child{margin-top:0}
 
