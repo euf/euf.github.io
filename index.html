@@ -68,6 +68,7 @@
      · lead ~24-27 (the hook, given weight) · name (fluid, dominant). */
   --fs-data:.889rem; --fs-body:1rem; --fs-sub:1.222rem; /* 16/18/22px at the 18px base; rem so they track the root upscale */
   --fs-role:clamp(1rem,5.6vw,1.25rem); /* CPO role-title; exposed so the hero portrait height can track it */
+  --fs-meta:calc(var(--fs-role) * 0.903); /* meta tracks the role size so the meta line always renders at 90% of the "CHIEF PRODUCT OFFICER" width. k=0.903 measured with em-based separator gaps; holds at every viewport since both meta and CPO scale with --fs-role */
   --fs-lead:clamp(1.2rem,0.9rem + 1.4vw,1.5rem); /* 21.6 on 320 → 27 on desktop; stays clearly under the name */
   --fs-h1:clamp(1.5rem,10vw - 5px,2.75rem); --ls-caps:.1em; /* name FILLS its column to the right of the photo: the column is ~vw − photo − gaps, so the size tracks vw (~27px @320 → 2.75rem cap by ~545). "Fayvuzhinskiy" is the constraining line; slope tuned so it nearly reaches the right edge without overflow */
 }
@@ -136,32 +137,43 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
   line-height:1.3; letter-spacing:0; margin:0; max-width:var(--measure)}
 
 /* HERO — its own grid. The portrait is a square that fills the rail column (--rail) and is
-   left-aligned in BOTH layouts, so it never resizes or shifts across the breakpoint.
+   left-aligned in BOTH main layouts, so it never resizes or shifts across the breakpoint.
    MOBILE: photo left, name (sized to FILL its column — see --fs-h1) bottom-aligned to its right,
-   then role / lead / meta full-width below.
+   then role / meta / lead full-width below (identity cluster name·CPO·meta, then the thesis).
    DESKTOP: photo in the rail spanning the name + role rows; since --rail == the name→CPO-baseline
-   distance, the square's bottom lands exactly on the CPO baseline. */
+   distance, the square's bottom lands exactly on the CPO baseline.
+   EXTREME NARROW (<~300px): drops to a single stacked column — see @container (max-width:15rem). */
 .section.hero{border-top:none; margin-top:0; padding-top:0;
   display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:var(--s4); align-items:end;
-  grid-template-areas:"photo name" "role role" "lead lead" "meta meta"}
+  grid-template-areas:"photo name" "role role" "meta meta" "lead lead"}
 .hero-photo{grid-area:photo}
 .hero-name{grid-area:name; align-self:end}
 .hero .role-title{grid-area:role}
 .hero .lead{grid-area:lead}
 .hero .meta{grid-area:meta}
 /* portrait — no frame, the crop is intentional; square, capped at the rail so it scales down on small phones */
-.portrait{width:min(30vw,var(--rail)); aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px}
+.portrait{width:min(28vw,var(--rail)); aspect-ratio:1; height:auto; object-fit:cover; display:block; border-radius:2px} /* 28vw (not 30) buys the name column a few px on the narrowest phones, so the deliberately edge-filling name keeps a hair of slack cross-browser */
 @container (min-width:33rem){
   .section.hero{grid-template-columns:var(--rail) minmax(0,var(--measure)); column-gap:var(--gap); align-items:start;
-    grid-template-areas:"photo name" "photo role" ".     lead" ".     meta"}
+    grid-template-areas:"photo name" "photo role" ".     meta" ".     lead"}
   .portrait{width:100%} /* fills the rail; aspect-ratio 1 makes height == --rail → bottom on the CPO baseline */
 }
+/* EXTREME NARROW (< ~300px: sub-320 devices, deep embeds, heavy zoom). Below this the
+   photo|name row can't hold the name, so drop the whole hero to one column — the name
+   gets full width and stays clean. A safety context switch, not a breakpoint for real
+   phones; the --fs-h1 clamp is kept (full width makes its 27px floor fit with room). */
+@container (max-width:15rem){
+  .section.hero{grid-template-columns:1fr; align-items:start;
+    grid-template-areas:"photo" "name" "role" "meta" "lead"}
+  .hero-name{align-self:start; margin-top:var(--s3)}
+  .hero .role-title{white-space:normal} /* CPO is nowrap by default (tuned to fit to 320); sub-300 let it wrap to 2 lines instead of eating the padding / overflowing */
+}
 h1{font-family:var(--display); font-size:var(--fs-h1); font-weight:500;
-  letter-spacing:-.022em; line-height:1.02; margin:0} /* tighter tracking at display size */
+  letter-spacing:-.022em; line-height:1.02; margin:0; overflow-wrap:break-word} /* tighter tracking at display size; break-word is a dormant guardrail — only fires below 320px / under text-zoom, where wrapping beats clipping */
 .role-title{text-transform:uppercase; font-weight:600; letter-spacing:var(--ls-caps); color:var(--accent); margin:var(--s5) 0 0; line-height:1.3} /* balanced 24 above; lead sits 24 below (see .lead) */
-.lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.32; margin:var(--s5) 0 0; max-width:var(--measure); text-wrap:balance} /* 24 below the CPO line — balanced with the 24 above it */
-.meta{letter-spacing:.02em; color:var(--muted); font-feature-settings:"lnum" 1,"pnum" 1; /* lining figures, so Space307's 307 matches the 01/2017 data tier */
-  margin:var(--s6) 0 0; display:flex; flex-wrap:wrap; gap:var(--s4); align-items:center}
+.lead{font-family:var(--body); font-size:var(--fs-lead); line-height:1.32; margin:var(--s6) 0 0; max-width:var(--measure); text-wrap:balance} /* 32 above (one scale-step over the 24 cluster) — a beat that sets the serif thesis apart from the sans identity cluster, while staying subordinate to the 64 section break so the lead still reads as the hero's */
+.meta{font-size:var(--fs-meta); letter-spacing:.02em; color:var(--muted); line-height:1.3; font-feature-settings:"lnum" 1,"pnum" 1; /* lining figures, so Space307's 307 matches the 01/2017 data tier; 1.3 (not inherited 1.6) hugs the text so it binds to CPO instead of floating in a tall box */
+  margin:var(--s5) 0 0; display:flex; flex-wrap:wrap; gap:.8em; align-items:center} /* 24 above (s5) — tight identity cluster (name→CPO→meta all at 24); the lead then gets a 32 beat. Separator gap in em (not fixed px) so meta width scales purely with its font-size — that's what lets the 90%-of-CPO ratio hold at every viewport */
 .meta .sep{color:var(--muted)}
 .meta .mi{display:inline-flex; align-items:center; gap:var(--s3); white-space:nowrap}
 
@@ -211,8 +223,8 @@ footer{margin-top:var(--s8); border-top:1px solid var(--hairline); padding-top:v
     </picture>
     <h1 class="hero-name">Evgeny<br>Fayvuzhinskiy</h1>
     <p class="role-title">Chief Product Officer</p>
-    <p class="lead">Coming from the business side of fintech, I read product through its economics and grow leaders who own the hard calls.</p>
     <p class="meta"><span class="mi">Space307</span><span class="sep">&middot;</span><span class="mi">Limassol, Cyprus</span></p>
+    <p class="lead">Coming from the business side of fintech, I read product through its economics and grow leaders who own the hard calls.</p>
   </header>
 
   <section class="section">
