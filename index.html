@@ -59,13 +59,14 @@
   --hairline:#E2DED4; --accent:#133A7C; --accent-hover:#0E2C5E;
   --display:'Commissioner','Commissioner Fallback','Inter',system-ui,sans-serif;
   --body:'Literata','Literata Fallback',Georgia,'Times New Roman',serif;
-  /* spacing — 8px-based scale, one token per role */
-  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
+  /* spacing — 8px-based scale in rem so it scales with the root font (see html{}).
+     values below == 4/8/12/16/24/32/48/64/96/128px at the 18px base */
+  --s1:.222rem;--s2:.444rem;--s3:.667rem;--s4:.889rem;--s5:1.333rem;--s6:1.778rem;--s7:2.667rem;--s8:3.556rem;--s9:5.333rem;--s10:7.111rem;
   --measure:34rem; --rail:8.27rem; --gap:2.75rem; /* rail column width AND the hero portrait size (one value). Tuned (148.8px) so the square portrait's bottom lands exactly on the CPO caps baseline on desktop. @container (min-width:33rem) flips the section to two columns */
   /* type — a real descending scale with presence, not a timid cluster:
      data 16 (quiet apparatus + rail labels) · body 18 · sub 22 (content subheads)
      · lead ~24-27 (the hook, given weight) · name (fluid, dominant). */
-  --fs-data:16px; --fs-body:18px; --fs-sub:22px;
+  --fs-data:.889rem; --fs-body:1rem; --fs-sub:1.222rem; /* 16/18/22px at the 18px base; rem so they track the root upscale */
   --fs-role:clamp(1rem,5.6vw,1.25rem); /* CPO role-title; exposed so the hero portrait height can track it */
   --fs-lead:clamp(1.2rem,0.9rem + 1.4vw,1.5rem); /* 21.6 on 320 → 27 on desktop; stays clearly under the name */
   --fs-h1:clamp(1.5rem,10vw - 5px,2.75rem); --ls-caps:.1em; /* name FILLS its column to the right of the photo: the column is ~vw − photo − gaps, so the size tracks vw (~27px @320 → 2.75rem cap by ~545). "Fayvuzhinskiy" is the constraining line; slope tuned so it nearly reaches the right edge without overflow */
@@ -75,7 +76,11 @@
          --hairline:#2E3036; --accent:#8AA6EA; --accent-hover:#A6BCF0; }
 }
 *{box-sizing:border-box}
-html{font-size:18px;-webkit-text-size-adjust:100%}
+/* root font is the master scale: fixed 18px up to ~1400px, then a gentle fluid
+   upscale to 21px by ~2560px. Because type + spacing + measure are all rem, the
+   whole ledger grows as one unit on large screens — line-length in characters is
+   unchanged, the page just stops looking marooned on ultra-wide displays. */
+html{font-size:clamp(18px, 14.4px + 0.26vw, 21px); -webkit-text-size-adjust:100%}
 body{
   margin:0; background:var(--bg); color:var(--ink);
   font-family:var(--body); font-size:var(--fs-body); line-height:1.6; font-weight:400;
