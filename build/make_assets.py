@@ -205,7 +205,7 @@ def build_og():
         d.text((x, y), ch, font=role_f, fill=ACCENT)
         x += d.textlength(ch, font=role_f) + 2.4
     y += 92
-    for line in wrap(d, "Product durability is an economics problem.", tag_f, 560):
+    for line in wrap(d, "Durability is an economics problem before it’s a feature problem.", tag_f, 560):
         d.text((PADX, y), line, font=tag_f, fill=MUTED)
         y += 46
 
