@@ -18,7 +18,7 @@ from fontTools.pens.boundsPen import BoundsPen
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 FONTS = os.path.join(HERE, "fonts")
-GOLOS = os.path.join(FONTS, "Commissioner-600.ttf")  # display font (name/role/EF monogram)
+GOLOS = os.path.join(FONTS, "Commissioner-600.ttf")  # display font (name/role/ЕФ monogram)
 LIT_IT = os.path.join(FONTS, "Literata-Italic.ttf")
 CUTOUT = "/Users/eugene/Downloads/headshot.opt.png"
 
@@ -29,10 +29,12 @@ ACCENT= (19, 58, 124)     # #133A7C  --accent
 MUTED = (90, 87, 80)      # #5A5750  --muted
 HAIR  = (226, 222, 212)   # #E2DED4  --hairline
 
-MONO = "EF"
+# Cyrillic monogram: Е (identical to Latin E) + Ф. Reads "EF" to a Latin
+# audience, but the Ф gives a distinctive, ownable circle-and-bar mark.
+MONO = "ЕФ"
 
 # ----------------------------------------------------------------------------
-# FAVICON (raster): deep-blue rounded tile, cream "EF", Golos Text 600
+# FAVICON (raster): deep-blue rounded tile, cream "ЕФ", Commissioner 600
 # ----------------------------------------------------------------------------
 def fit_font(text, target_w, target_h, path):
     """Largest font size whose text fits target box."""

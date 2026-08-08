@@ -125,7 +125,8 @@ a:hover{color:var(--accent-hover); text-decoration-thickness:2px}
 .content{min-width:0; max-width:var(--measure)}
 @container (min-width:33rem){
   .section{display:grid; grid-template-columns:var(--rail) minmax(0,var(--measure)); column-gap:var(--gap); align-items:baseline} /* rail label sits ON the content's first baseline, not merely top-aligned — kills the ~5px caps-vs-serif drift */
-  .rail{text-align:right; margin-bottom:0}
+  .rail{text-align:right; margin-bottom:0;
+    position:sticky; top:var(--s6)} /* the section label trails the reader down its own section, then the next section's rule pushes it off — a CSS-only "active section" marker, no JS. It has travel because align-items:baseline still gives the rail its full (taller) content-row height as the containing block */
 }
 .kicker{text-transform:uppercase; font-weight:500; letter-spacing:var(--ls-caps); color:var(--muted); margin:0; line-height:1.2}
 .content>*:first-child{margin-top:0}
@@ -188,7 +189,8 @@ p{margin:var(--s5) 0 0; max-width:var(--measure); text-wrap:pretty}
 
 
 /* contact + footer */
-.contact{display:flex; flex-direction:column; gap:var(--s3); font-family:var(--display); font-weight:500; font-size:var(--fs-data)}
+.contact{display:flex; flex-direction:column; gap:var(--s3); font-family:var(--display); font-weight:500; font-size:var(--fs-data);
+  margin-top:var(--s5)} /* sits below the intent line; zeroed by the :first-child rule when no intro precedes it */
 .contact .ci{display:inline-flex; align-items:center; gap:.6em; line-height:1;
   color:var(--accent); text-decoration:none} /* the whole row — icon + text — is one click target */
 .contact .ci svg{width:20px; height:20px; fill:var(--accent); flex:0 0 auto}
@@ -230,7 +232,7 @@ footer{margin-top:var(--s8); border-top:1px solid var(--hairline); padding-top:v
   <section class="section">
     <div class="rail"><h2 class="kicker">Profile</h2></div>
     <div class="content">
-      <p>Eight years at <span class="lnum">Space307</span> &mdash; a trading platform for emerging markets across Asia and the Middle East &mdash; I priced the risk and built the monetization function before I ran product. It taught me to read a product through its economics, and to respect how hard the craft under it is.</p>
+      <p>Eight years at <span class="lnum">Space307</span>, a trading platform serving 20+ markets across Asia and the Middle East. I priced the risk and built the monetization function before I ran product; I read a product from its economics up, and I respect how hard the craft on top of that is.</p>
       <p>My strongest work is the org. I rebuilt how my department decides: quicker, cheaper, evidence over opinion. And I set how the wider company now decides which bets earn a rigorous test and which earn a fast, argued call &mdash; rigor where it&rsquo;s measurable, judgment where it isn&rsquo;t. When a call has to come before the data is clean, I make it and put my name on it.</p>
       <p>I shaped the product strategy the company runs on, and most of what I lead I don&rsquo;t manage &mdash; people follow the argument, not the title. The work I&rsquo;m proudest of is the leads who outgrew the roles I first handed them. I&rsquo;ll name a hard problem early, in plain words, rather than let it sit behind a clean status report.</p>
     </div>
@@ -239,7 +241,7 @@ footer{margin-top:var(--s8); border-top:1px solid var(--hairline); padding-top:v
   <section class="section">
     <div class="rail"><h2 class="kicker">Point of view</h2></div>
     <div class="content">
-      <p>A conviction I build and hire against: product durability is an economics problem before it&rsquo;s a feature problem. In a category like this one &mdash; regulation tightening, growth getting expensive &mdash; the products that last are the ones whose unit economics still work once the easy wins are gone. I&rsquo;d rather get the money model right than repaint the funnel.</p>
+      <p>A conviction I build and hire against: durability is an economics problem before it&rsquo;s a feature problem. I work in a category under tightening scrutiny &mdash; regulation closing in, acquisition getting expensive, growth no longer cheap. The products that last here are the ones whose unit economics still hold once the easy wins are gone. I&rsquo;d rather get the money model right than repaint the funnel.</p>
     </div>
   </section>
 
@@ -249,17 +251,17 @@ footer{margin-top:var(--s8); border-top:1px solid var(--hairline); padding-top:v
       <div class="stage">
         <span class="years tnum">2017&ndash;2022</span>
         <div><h3 class="role">Quant &middot; Risk Management</h3>
-        <p>I owned the pricing and risk end of the book &mdash; how every instrument we trade is priced and hedged. I grew from junior to senior quant, and the hardest calls in a live market landed on my desk.</p></div>
+        <p>I owned the pricing and risk end of the book: how every instrument we trade is priced and hedged. I grew from junior to senior quant, and the hardest live-market decisions landed on my desk.</p></div>
       </div>
       <div class="stage">
         <span class="years tnum">2022&ndash;2025</span>
         <div><h3 class="role">Monetization Lead</h3>
-        <p>Monetization wasn&rsquo;t a function yet. Leadership carved it out and asked me to build it &mdash; I did, from scratch: instrument pricing and risk, partner-network economics, retention, and the team of quants and analysts that runs it today. This is also where I moved from doing the analysis to leading the people who do it, and where I first had a hand in the company&rsquo;s strategy.</p></div>
+        <p>Monetization wasn&rsquo;t a function yet; it was smeared across teams, owned by no one. Leadership carved it out and asked me to build it, and I did &mdash; from scratch: instrument pricing and risk, partner-network economics, retention, and the team of quants and analysts that runs it today. This is where I moved from doing the analysis to leading the people who do it, and where I first had a hand in company strategy.</p></div>
       </div>
       <div class="stage">
         <span class="years tnum">2026&thinsp;&ndash;&thinsp;Now</span>
         <div><h3 class="role">Chief Product Officer</h3>
-        <p>I own product end to end &mdash; five delivery streams across the product&rsquo;s lifecycle, plus the functional teams for monetization, design, and research &mdash; and sit on the company&rsquo;s management team. The org I inherited was well-built, so I didn&rsquo;t spend my first year reorganizing it; I put my weight where the leverage was &mdash; how it decides. The operating model runs faster and cheaper now, and every roadmap review starts in the unit economics.</p></div>
+        <p>I own product end to end: a matrixed org of around eighty across five cross-functional delivery streams and the functional teams for monetization, design, and research, with nine leaders reporting to me directly. I sit on the company&rsquo;s management team. The org I inherited was well-built, so I didn&rsquo;t spend my first year reorganizing it &mdash; I put my weight where the leverage was: how it decides. The operating model runs leaner now, and every roadmap review starts in the unit economics.</p></div>
       </div>
     </div>
   </section>
@@ -268,15 +270,16 @@ footer{margin-top:var(--s8); border-top:1px solid var(--hairline); padding-top:v
     <div class="rail"><h2 class="kicker">How I lead</h2></div>
     <div class="content">
       <div class="principle"><h3>The constraint is never where it was last quarter.</h3><p>I moved a product org off measuring everything toward fast, cheap, evidence-first bets. When the bottleneck moved from shipping to deciding, I moved it again.</p></div>
-      <div class="principle"><h3>The model is a tool, not a verdict.</h3><p>My quant years taught me to read the numbers as evidence, not a ruling. The job is separating the bets that compound in the economics from the ones that just demo well.</p></div>
-      <div class="principle"><h3>The people calls are the ones to get right.</h3><p>I make them early and honestly. I treat the person leaving with as much care as the team staying, and own the call plainly instead of hiding behind process.</p></div>
-      <div class="principle"><h3>Know when to tune the engine and when to swap it.</h3><p>Most of the work is tuning how the money gets made. The judgment that earns its keep is spotting early &mdash; from where regulation and the market are heading &mdash; the moment tuning stops paying and the engine itself has to change.</p></div>
+      <div class="principle"><h3>The model is a tool, not a verdict.</h3><p>My quant years taught me to read the numbers as evidence, not a ruling. The job is separating the bets that compound from the ones that just demo well.</p></div>
+      <div class="principle"><h3>The people calls are the ones to get right.</h3><p>I make them early and honestly. I treat the person leaving with as much care as the team staying, and own the decision plainly instead of hiding behind process.</p></div>
+      <div class="principle"><h3>Know when to tune the engine and when to swap it.</h3><p>Most of the work is tuning how the money gets made. The judgment that earns its keep is spotting early, from where regulation and the market are heading, the moment tuning stops paying and the engine itself has to change.</p></div>
     </div>
   </section>
 
   <section class="section">
     <div class="rail"><h2 class="kicker">Contact</h2></div>
     <div class="content">
+      <p>I keep room for board and advisory work in fintech, the occasional talk, and mentoring product leaders &mdash; and I&rsquo;m always glad to hear from product people who want to build this way.</p>
       <div class="contact">
         <a class="ci" href="https://www.linkedin.com/in/evgeny-fayvuzhinskiy/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg><span>linkedin.com/in/evgeny-fayvuzhinskiy</span></a>
         <a class="ci" href="mailto:e.u.f@icloud.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m-.4 4.25-6.54 4.09c-.65.41-1.47.41-2.12 0L4.4 8.25c-.25-.16-.4-.43-.4-.72 0-.67.73-1.07 1.3-.72L12 11l6.7-4.19c.57-.35 1.3.05 1.3.72 0 .29-.15.56-.4.72"/></svg><span>e.u.f@icloud.com</span></a>
